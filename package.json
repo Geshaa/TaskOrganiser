@@ -1,0 +1,25 @@
+{
+  "name": "Grunt",
+  "description": "This is development grunt. It is based on Ivan Dokov`s Grunt - http://dokov.bg ",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Georgi Ivanov",
+    "email": "development@givanov.eu",
+    "url": "http://givanov.eu"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.1.2",
+    "cssnano": "^3.7.3",
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-imagemin": "^1.0.1",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-less": "^1.4.0",
+    "grunt-contrib-uglify": "^0.11.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-postcss": "^0.7.1",
+    "grunt-svgstore": "^0.5.0",
+    "load-grunt-tasks": "^3.5.2"
+  }
+}

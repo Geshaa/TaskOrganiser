@@ -1,0 +1,19 @@
+livereloadPort: 35755
+
+options:
+    css_minify: true
+    css_map: true
+    js_map: true
+
+dest:
+    front:
+        js:
+            modules:
+                - jQuery
+
+            scripts:
+                - app
+
+        html:
+            - public/**/*.php
+            - public/**/*.html
