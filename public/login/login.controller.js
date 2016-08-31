@@ -12,18 +12,32 @@
 
         lc.login = login;
 
-        //reset login status
-        (function initController() {
-            //AuthenticationService.ClearCredentials();
-        })();
-
         function login() {
             lc.dataLoading = true;
 
-            $http.get('../public/classes/Authenticate.php', { params: {"mode": "login"}} ).success(function(data) {
-                $scope.users = data;
-                lc.dataLoading = false;
+            var data = $.param({
+                mode: 'login',
+                email: lc.email,
+                password: lc.password,
             });
+
+            $http({
+                url: '../public/classes/Authenticate.php',
+                method: 'POST',
+                data: data,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then(function(response) {
+
+                if ( response.data == 1) {
+                    lc.dataLoading = false;
+                    $location.path('/dashboard');
+                }
+                //else {
+                //
+                //}
+                console.log(response.data);
+            })
         }
     }
 
