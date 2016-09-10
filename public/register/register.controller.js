@@ -4,7 +4,7 @@
     var app = angular.module('app');
     app.controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$location', '$rootScope', '$http'];
+    RegisterController.$inject = ['$location', '$http'];
 
     function RegisterController($location, $http) {
         var rc = this;
@@ -30,7 +30,12 @@
             })
             .then(function(response) {
 
-                console.log(response);
+                if ( response.data === "-1")
+                    rc.taken = true;
+                else
+                    $location.path('/dashboard');
+
+                rc.dataLoading = false;
             })
         }
     }

@@ -5,9 +5,9 @@
 
     app.controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', '$http', '$scope'];
+    LoginController.$inject = ['$location', '$http'];
 
-    function LoginController($location, $http, $scope) {
+    function LoginController($location, $http) {
         var lc = this;
 
         lc.login = login;
@@ -29,14 +29,16 @@
             })
             .then(function(response) {
 
-                if ( response.data == 1) {
-                    lc.dataLoading = false;
+                if ( response.data === "1") {
                     $location.path('/dashboard');
+                    lc.wrongData = false;
                 }
-                //else {
-                //
-                //}
-                console.log(response.data);
+                else {
+                    lc.wrongData = true;
+                }
+                lc.dataLoading = false;
+
+                console.log(response.data === "1", typeof response.data);
             })
         }
     }

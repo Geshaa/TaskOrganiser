@@ -5,11 +5,11 @@
     app.config(config);
     app.run(run);
 
-    config.$inject = ['$routeProvider', '$locationProvider'];
+    config.$inject = ['$routeProvider',];
 
-    function config($routeProvider, $locationProvider) {
+    function config($routeProvider) {
         $routeProvider
-            .when('/', {
+            .when('/dashboard', {
                 controller: 'DashboardController',
                 templateUrl: 'dashboard/dashboard.view.html',
                 controllerAs: 'dc'

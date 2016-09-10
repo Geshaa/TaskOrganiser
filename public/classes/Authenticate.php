@@ -22,8 +22,7 @@ class Authenticate {
 
 		$this->results = $this->statement->fetch(PDO::FETCH_ASSOC);
 
-		//need to implement password hash
-		if( count($this->results) > 0 && $this->password == $this->results['password']) {
+		if( count($this->results) > 0 && password_verify($this->password, $this->results['password']) ) {
 			echo 1;
 		}
 		else {
@@ -43,36 +42,32 @@ class Authenticate {
 	}
 
 	public function register() {
-		$this->core 		= Core::getInstance();
+		$this->core 			= Core::getInstance();
 
 		$this->firstName 		= $_POST['fname'];
 		$this->lastName 		= $_POST['lname'];
 		$this->email 			= $_POST['email'];
 		$this->password 		= $_POST['password'];
 
+		$this->statement = $this->core->dbh->prepare("SELECT COUNT(id) from users WHERE email = :email");
+		$this->statement->bindParam(':email', $this->email);
+		$this->statement->execute();
 
-		print($this->firstName);
-//		exit;
+		$count = $this->statement->fetchColumn();
 
-//		$this->statement = $this->core->dbh->prepare("SELECT COUNT(id) from users WHERE email = :email");
-//		$this->statement->bindParam(':email', $this->email);
-//		$this->statement->execute();
-
-//		$count = $this->statement->fetchColumn();
-
-//		if ( $count === "1") {
-//			echo $count;
-//		}
-//		else {
-//			$hash = password_hash($this->password, PASSWORD_DEFAULT);
+		if ( $count === "1" ) {
+			echo -1;
+		}
+		else {
+			$hash = password_hash($this->password, PASSWORD_DEFAULT);
 			$stm = $this->core->dbh->prepare("INSERT INTO users(firstName, lastName, email, password) VALUES ( :firstName, :lastName, :email, :password)");
 			$stm->bindParam(':firstName', $this->firstName);
 			$stm->bindParam(':lastName', $this->lastName);
 			$stm->bindParam(':email', $this->email);
-			$stm->bindParam(':password', $this->password);
-			$stm->execute(); 
-//			echo $count;
-//		}
+			$stm->bindParam(':password', $hash);
+			$stm->execute();
+			echo  1;
+		}
 	}
 }
 
