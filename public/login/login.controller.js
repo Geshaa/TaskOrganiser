@@ -5,9 +5,9 @@
 
     app.controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', '$http'];
+    LoginController.$inject = ['$location', '$http', '$cookies'];
 
-    function LoginController($location, $http) {
+    function LoginController($location, $http, $cookies) {
         var lc = this;
 
         lc.login = login;
@@ -38,8 +38,12 @@
                 }
                 lc.dataLoading = false;
 
-                console.log(response.data === "1", typeof response.data);
+                console.log($cookies.get('userID'));
+
+                //console.log(response.data === "1", typeof response.data);
+                //console.log($cookies.get('testCookie'));
             })
+
         }
     }
 

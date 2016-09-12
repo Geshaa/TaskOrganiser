@@ -10,7 +10,7 @@
     function DashboardController($location, $http) {
         var dc = this;
 
-        alert('calling dashboard controller');
+        //alert('calling dashboard controller');
     }
 
 })();

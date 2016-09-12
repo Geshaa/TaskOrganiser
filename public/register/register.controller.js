@@ -4,9 +4,9 @@
     var app = angular.module('app');
     app.controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$location', '$http'];
+    RegisterController.$inject = ['$location', '$http', '$cookies'];
 
-    function RegisterController($location, $http) {
+    function RegisterController($location, $http, $cookies) {
         var rc = this;
 
         rc.register = register;
@@ -36,6 +36,8 @@
                     $location.path('/dashboard');
 
                 rc.dataLoading = false;
+
+                $cookies.put('userID', '6');
             })
         }
     }
