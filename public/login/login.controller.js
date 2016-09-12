@@ -29,22 +29,17 @@
             })
             .then(function(response) {
 
-                if ( response.data === "1") {
+                if ( response.data[0] === 1) {
                     $location.path('/dashboard');
                     lc.wrongData = false;
                 }
                 else {
                     lc.wrongData = true;
                 }
+
                 lc.dataLoading = false;
-
-                console.log($cookies.get('userID'));
-
-                //console.log(response.data === "1", typeof response.data);
-                //console.log($cookies.get('testCookie'));
+                $cookies.put('userID', response.data[1]);
             })
-
         }
     }
-
 })();

@@ -5,12 +5,12 @@
 
     app.controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$location', '$http'];
+    DashboardController.$inject = ['$location', '$http', '$cookies'];
 
-    function DashboardController($location, $http) {
+    function DashboardController($location, $http, $cookies) {
         var dc = this;
 
-        //alert('calling dashboard controller');
+        window.console.log($cookies.get('userID'));
     }
 
 })();

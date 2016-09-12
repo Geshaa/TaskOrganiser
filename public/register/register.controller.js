@@ -29,15 +29,16 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
             .then(function(response) {
+                window.console.log(response.data);
 
-                if ( response.data === "-1")
+                if ( response.data[0] === -1)
                     rc.taken = true;
                 else
                     $location.path('/dashboard');
 
                 rc.dataLoading = false;
 
-                $cookies.put('userID', '6');
+                $cookies.put('userID', response.data[1]);
             })
         }
     }

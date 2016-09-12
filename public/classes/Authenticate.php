@@ -22,12 +22,17 @@ class Authenticate {
 
 		$this->results = $this->statement->fetch(PDO::FETCH_ASSOC);
 
+		$object = array();
+
 		if( count($this->results) > 0 && password_verify($this->password, $this->results['password']) ) {
-			echo 1;
+			$object[] = 1;
+			$object[] = intval($this->results['id']);
 		}
 		else {
-			echo -1;
+			$object[] = -1;
 		}
+
+		print json_encode($object);
 	}
 
 	public function logout() {
@@ -53,10 +58,12 @@ class Authenticate {
 		$this->statement->bindParam(':email', $this->email);
 		$this->statement->execute();
 
-		$count = $this->statement->fetchColumn();
+		$count 	 = $this->statement->fetchColumn();
+
+		$object = array();
 
 		if ( $count === "1" ) {
-			echo -1;
+			$object[] = -1;
 		}
 		else {
 			$hash = password_hash($this->password, PASSWORD_DEFAULT);
@@ -66,8 +73,17 @@ class Authenticate {
 			$stm->bindParam(':email', $this->email);
 			$stm->bindParam(':password', $hash);
 			$stm->execute();
-			echo  1;
+
+			$stm = $this->core->dbh->prepare("SELECT id from users WHERE email = :email");
+			$stm->bindParam(':email', $this->email);
+			$stm->execute();
+			$this->results = $stm->fetch(PDO::FETCH_ASSOC);
+
+			$object[] = 1;
+			$object[] = intval($this->results['id']);
 		}
+
+		print json_encode($object);
 	}
 }
 
