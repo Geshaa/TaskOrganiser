@@ -6,6 +6,7 @@ class Authenticate {
 	private $password;
 	private $firstName;
 	private $lastName;
+	private $phone;
 	private $core;
 	private $statement;
 	private $results;
@@ -53,6 +54,7 @@ class Authenticate {
 		$this->lastName 		= $_POST['lname'];
 		$this->email 			= $_POST['email'];
 		$this->password 		= $_POST['password'];
+		$this->phone 			= $_POST['phone'];
 
 		$this->statement = $this->core->dbh->prepare("SELECT COUNT(id) from users WHERE email = :email");
 		$this->statement->bindParam(':email', $this->email);
@@ -67,9 +69,10 @@ class Authenticate {
 		}
 		else {
 			$hash = password_hash($this->password, PASSWORD_DEFAULT);
-			$stm = $this->core->dbh->prepare("INSERT INTO users(firstName, lastName, email, password) VALUES ( :firstName, :lastName, :email, :password)");
+			$stm = $this->core->dbh->prepare("INSERT INTO users(firstName, lastName, phone, email, password) VALUES ( :firstName, :lastName, :phone, :email, :password)");
 			$stm->bindParam(':firstName', $this->firstName);
 			$stm->bindParam(':lastName', $this->lastName);
+			$stm->bindParam(':phone', $this->phone);
 			$stm->bindParam(':email', $this->email);
 			$stm->bindParam(':password', $hash);
 			$stm->execute();

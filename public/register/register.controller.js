@@ -18,6 +18,7 @@
                 mode: 'register',
                 fname: rc.firstName,
                 lname: rc.lastName,
+                phone: rc.phone,
                 password: rc.password,
                 email: rc.email
             });

@@ -11,6 +11,11 @@
 		<span ng-show="form.lastName.$dirty && form.lastName.$error.required">Last name is required</span>
 	</div>
 	<div class="form-group">
+		<label for="phone">Phone number</label>
+		<input type="tel" name="phone" id="phone" ng-model="rc.phone" required />
+		<span ng-show="form.phone.$dirty && form.phone.$error.required">Phone is required</span>
+	</div>
+	<div class="form-group">
 		<label for="email">Email</label>
 		<input type="email" name="email" id="email" ng-model="rc.email" required />
 		<span ng-show="form.email.$dirty && form.email.$error.required">Email is required</span>

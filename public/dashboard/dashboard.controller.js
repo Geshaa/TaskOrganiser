@@ -10,7 +10,18 @@
     function DashboardController($location, $http, $cookies) {
         var dc = this;
 
-        window.console.log($cookies.get('userID'));
+        dc.logout = logout;
+
+        if ( ! $cookies.get('userID'))
+            $location.path('/login');
+
+
+
+
+
+        function logout() {
+            $cookies.remove('userID');
+        }
     }
 
 })();
