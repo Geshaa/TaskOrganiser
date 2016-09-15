@@ -12,6 +12,9 @@
 
         lc.login = login;
 
+        $('.wrapper').removeClass('lowAnimations');
+
+
         function login() {
             lc.dataLoading = true;
 

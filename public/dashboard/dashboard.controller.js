@@ -15,6 +15,7 @@
         if ( ! $cookies.get('userID'))
             $location.path('/login');
 
+        $('.wrapper').addClass('lowAnimations');
 
 
 
