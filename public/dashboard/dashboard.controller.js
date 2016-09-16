@@ -5,9 +5,9 @@
 
     app.controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$location', '$http', '$cookies'];
+    DashboardController.$inject = ['$location', '$cookies'];
 
-    function DashboardController($location, $http, $cookies) {
+    function DashboardController($location, $cookies) {
         var dc = this;
 
         dc.logout = logout;
@@ -17,7 +17,7 @@
 
         $('.wrapper').addClass('lowAnimations');
 
-
+        dc.title = 'gesh';
 
 
         function logout() {

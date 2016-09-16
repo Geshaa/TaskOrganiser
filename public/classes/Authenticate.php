@@ -36,17 +36,6 @@ class Authenticate {
 		print json_encode($object);
 	}
 
-	public function logout() {
-
-		session_start();
-
-		if(isset($_SESSION['userID']))
-			unset($_SESSION['userID']);
-
-		session_destroy();
-		echo 'destroy';
-	}
-
 	public function register() {
 		$this->core 			= Core::getInstance();
 
@@ -96,9 +85,6 @@ switch($_REQUEST['mode']) {
 
 	case 'login':
 		$user->login();
-		break;
-	case 'logout':
-		$user->logout();
 		break;
 	case 'register':
 		$user->register();
