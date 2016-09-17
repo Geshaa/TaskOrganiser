@@ -90,5 +90,4 @@ switch($_REQUEST['mode']) {
 		$user->register();
 		break;
 }
-
 ?>

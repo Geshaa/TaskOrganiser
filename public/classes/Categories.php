@@ -6,6 +6,7 @@ class Categories {
     private $name;
     private $description;
     private $date;
+    private $categoryid;
 
     private $core;
     private $statement;
@@ -14,50 +15,24 @@ class Categories {
     public function create() {
         $this->core 			= Core::getInstance();
 
-        $this->firstName 		= $_POST['fname'];
-        $this->lastName 		= $_POST['lname'];
-        $this->email 			= $_POST['email'];
-        $this->password 		= $_POST['password'];
-        $this->phone 			= $_POST['phone'];
+        $this->name 		    = $_POST['name'];
+        $this->description 		= $_POST['description'];
+        $this->userid 		    = $_POST['userid'];
+        $this->date             = date("Y-m-d H:i:s");
 
-        $this->statement = $this->core->dbh->prepare("SELECT COUNT(id) from users WHERE email = :email");
-        $this->statement->bindParam(':email', $this->email);
-        $this->statement->execute();
-
-        $count 	 = $this->statement->fetchColumn();
-
-        $object = array();
-
-        if ( $count === "1" ) {
-            $object[] = -1;
-        }
-        else {
-            $hash = password_hash($this->password, PASSWORD_DEFAULT);
-            $stm = $this->core->dbh->prepare("INSERT INTO users(firstName, lastName, phone, email, password) VALUES ( :firstName, :lastName, :phone, :email, :password)");
-            $stm->bindParam(':firstName', $this->firstName);
-            $stm->bindParam(':lastName', $this->lastName);
-            $stm->bindParam(':phone', $this->phone);
-            $stm->bindParam(':email', $this->email);
-            $stm->bindParam(':password', $hash);
-            $stm->execute();
-
-            $stm = $this->core->dbh->prepare("SELECT id from users WHERE email = :email");
-            $stm->bindParam(':email', $this->email);
-            $stm->execute();
-            $this->results = $stm->fetch(PDO::FETCH_ASSOC);
-
-            $object[] = 1;
-            $object[] = intval($this->results['id']);
-        }
-
-        print json_encode($object);
+        $stm = $this->core->dbh->prepare("INSERT INTO categories(user_id, name, description, date) VALUES ( :userid, :name, :description, :date)");
+        $stm->bindParam(':userid', $this->userid);
+        $stm->bindParam(':name', $this->name);
+        $stm->bindParam(':description', $this->description);
+        $stm->bindParam(':date', $this->date);
+        $stm->execute();
     }
 
     public function read() {
         $this->core 		= Core::getInstance();
-        $this->userid 		= $_POST['userid'];
+        $this->userid 		= $_GET['userid'];
 
-        $this->statement = $this->core->dbh->prepare("SELECT name, description, date from categories WHERE user_id = :userid");
+        $this->statement = $this->core->dbh->prepare("SELECT id, name, description, date from categories WHERE user_id = :userid");
         $this->statement->bindParam(':userid', $this->userid);
         $this->statement->execute();
 
@@ -71,7 +46,12 @@ class Categories {
     }
 
     public function delete() {
+        $this->core 		    = Core::getInstance();
+        $this->categoryid 		= $_GET['categoryid'];
 
+        $this->statement = $this->core->dbh->prepare("DELETE from categories WHERE id = :categoryid");
+        $this->statement->bindParam(':categoryid', $this->categoryid);
+        $this->statement->execute();
     }
 }
 

@@ -2,7 +2,7 @@
 @import "../../modules/less/fonts";
 @import "sprite";
 
-@prim: #1f75e4;
+@main-form-text: #1f75e4;
 
 @keyframes square {
 	0%   { transform: translateY(0); }
@@ -37,6 +37,10 @@ input[type=number] {
     -moz-appearance:textfield;
 }
 
+img {
+	max-width:100%;
+}
+
 ::-webkit-input-placeholder { /* WebKit browsers */
 	font-family: 'Source Sans Pro', sans-serif;
 	color:    white;
@@ -58,6 +62,49 @@ input[type=number] {
 	font-family: 'Source Sans Pro', sans-serif;
 	color:    white;
 	font-weight: 300;
+}
+
+
+//popup core styles
+[data-overlay="popup"] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.7);
+	opacity: 0;
+	z-index: -1;
+	transition: all .3s linear;
+
+	&.visible {
+		opacity: 1;
+		z-index: 10;
+	}
+}
+
+[data-popup] {
+	position: fixed;
+	min-width: 250px;
+	min-height: 150px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	opacity: 0;
+	transition: all .4s ease;
+	visibility: hidden;
+
+	&.active {
+		z-index: 21;
+		opacity: 1;
+		visibility: visible;
+	}
+
+	&[data-popup="addCategory"] {
+		background-color: #4297f6;
+		padding: 30px;
+	}
 }
 
 .wrapper {
@@ -119,7 +166,7 @@ input[type=number] {
 	margin: 0 auto;
 	padding: 80px 0;
 	text-align: center;
-	z-index: 2;
+	z-index: 20;
 
 	h2 {
 		font-size: 40px;
@@ -137,7 +184,7 @@ input[type=number] {
 		margin: 20px auto;
 	}
 
-	input{
+	input, textarea {
 		display: block;
 		appearance: none;
 		outline: 0;
@@ -160,8 +207,12 @@ input[type=number] {
 		&:focus{
 			background-color: white;
 			width: 350px;
-			color: @prim;
+			color: @main-form-text;
 		}
+	}
+
+	textarea {
+		resize: none;
 	}
 
 	button {
@@ -170,7 +221,7 @@ input[type=number] {
 		background-color: white;
 		border: 0;
 		padding: 10px 15px;
-		color: @prim;
+		color: @main-form-text;
 		border-radius: 3px;
 		width: 300px;
 		cursor: pointer;
