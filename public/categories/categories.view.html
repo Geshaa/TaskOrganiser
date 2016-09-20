@@ -1,9 +1,20 @@
-<ul>
-    <li ng-repeat="category in cc.categories">{{category.name}} {{category.description}} {{category.date}} <span ng-click="cc.delete(category.id)" class="removeCategory">X</span> <span  class="updateCategory" data-popup-open="updateCategory" ng-click="cc.setInfo(category.id, category.name, category.description)">Edit</span></li>
-</ul>
-<span class="btn" data-popup-open="addCategory">Add new category</span>
+<section class="categories">
+    <span data-popup-open="addCategory" class="btn categories__add">Add new category</span>
+    <article ng-repeat="category in cc.categories" class="categories__item">
+        <aside>
+            <h3>{{category.name}}</h3>
+            <date>{{category.date}}</date>
+        </aside>
+        <p>{{category.description}}</p>
+        <div>
+            <span class="categories__edit" data-popup-open="updateCategory" ng-click="cc.setInfo(category.id, category.name, category.description)">Edit</span>
+            <span ng-click="cc.delete(category.id)" class="categories__remove">delete</span>
+        </div>
+    </article>
+</section>
 
 
+<!-- Popups here -->
 <div data-popup="addCategory">
     <h4>Add new category</h4>
 
@@ -22,7 +33,6 @@
     </form>
 </div>
 
-
 <div data-popup="updateCategory">
     <h4>Update Category</h4>
 
@@ -33,7 +43,7 @@
             <input type="text" name="name" ng-model="cc.name" placeholder="Name" required>
         </div>
         <div class="form__row">
-            <textarea name="description" ng-model="cc.description" placeholder="description" id="" cols="35" rows="5" required></textarea>
+            <textarea name="description" ng-model="cc.description" placeholder="description"  cols="35" rows="5" required></textarea>
         </div>
         <div class="form__row">
             <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" >Update</button>

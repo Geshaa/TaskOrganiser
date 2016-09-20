@@ -331,7 +331,58 @@ img {
 	}
 }
 
+.main {
+	display: flex;
+	margin: 30px auto;
+}
 
+.categories {
+	width: 350px;
+	margin-right: 30px;
+	text-align: left;
+
+	&__add {
+		cursor: pointer;
+	}
+
+	&__item {
+		margin: 15px 0;
+		text-align: left;
+		background-color: rgba(255, 255, 255, 0.7);
+		border-radius: 5px;
+		padding: 10px;
+
+		aside {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		p {
+			margin: 5px 0;
+			font-size:0.875rem;
+			font-style: italic;
+		}
+		
+		div {
+			text-align: right;
+		}
+	}
+
+	&__remove, &__edit {
+		text-transform: capitalize;
+		cursor: pointer;
+	}
+
+	&__edit {
+		color: #1f75e4;
+	}
+	
+	&__remove {
+		color: #c85959;
+	}
+
+}
 
 
 

@@ -1,7 +1,13 @@
 <h2>here is the dashboard</h2>
 <a href="#/login" ng-click="dc.logout()" class="logout">Logout</a>
-<h2>{{dc.title}}</h2>
 
-<section ng-controller="CategoryController as cc">
-    <div ng-include src="'./categories/categories.view.html'"></div>
-</section>
+<main class="main">
+    <section ng-controller="CategoryController as cc">
+        <ng-include src="'./categories/categories.view.html'" />
+    </section>
+
+    <section ng-controller="TaskController as tc">
+        task controlller
+    </section>
+
+</main>

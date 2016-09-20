@@ -17,9 +17,6 @@
 
         $('.wrapper').addClass('lowAnimations');
 
-        dc.title = 'gesh';
-
-
         function logout() {
             $cookies.remove('userID');
         }
