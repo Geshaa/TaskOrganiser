@@ -5,9 +5,9 @@
 
     app.controller('CategoryController', CategoryController);
 
-    CategoryController.$inject = ['$cookies', '$http', '$scope'];
+    CategoryController.$inject = ['$cookies', '$http'];
 
-    function CategoryController($cookies, $http, $scope) {
+    function CategoryController($cookies, $http) {
         var cc = this;
 
         list();

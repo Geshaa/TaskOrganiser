@@ -5,15 +5,14 @@
 
     app.controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', '$http', '$cookies'];
+    LoginController.$inject = ['$location', '$http', '$cookies', 'userData'];
 
-    function LoginController($location, $http, $cookies) {
+    function LoginController($location, $http, $cookies, userData) {
         var lc = this;
 
         lc.login = login;
 
         $('.wrapper').removeClass('lowAnimations');
-
 
         function login() {
             lc.dataLoading = true;
@@ -33,8 +32,9 @@
             .then(function(response) {
 
                 if ( response.data[0] === 1) {
-                    $location.path('/dashboard');
+                    userData.setFirstName('');
                     lc.wrongData = false;
+                    $location.path('/dashboard');
                 }
                 else {
                     lc.wrongData = true;

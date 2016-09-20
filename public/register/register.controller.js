@@ -4,9 +4,9 @@
     var app = angular.module('app');
     app.controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$location', '$http', '$cookies'];
+    RegisterController.$inject = ['$location', '$http', '$cookies', 'userData'];
 
-    function RegisterController($location, $http, $cookies) {
+    function RegisterController($location, $http, $cookies, userData) {
         var rc = this;
 
         rc.register = register;
@@ -32,17 +32,20 @@
             .then(function(response) {
                 window.console.log(response.data);
 
-                if ( response.data[0] === -1)
+                if ( response.data[0] === -1) {
+
                     rc.taken = true;
-                else
+                }
+                else {
+                    userData.setFirstName(rc.firstName);
+                    userData.setLastName(rc.lastName);
+                    userData.setPhone(rc.phone);
                     $location.path('/dashboard');
+                }
 
                 rc.dataLoading = false;
-
                 $cookies.put('userID', response.data[1]);
             })
         }
     }
-
-
 })();

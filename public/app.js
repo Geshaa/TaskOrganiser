@@ -35,4 +35,52 @@
 
     }
 
+    //factory for holding user data when login/register
+    app.factory('userData', function($cookies, $http) {
+        var data = {};
+        data.firstName;
+        data.lastName;
+        data.phone;
+
+        data.init = function() {
+            return $http({
+                url: '../public/classes/Authenticate.php?mode=getUser&userID='+$cookies.get('userID'),
+                method: 'GET',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then(function(response) {
+                data.firstName = response.data[0].firstName;
+                data.lastName = response.data[0].lastName;
+                data.phone = response.data[0].phone;
+            })
+        };
+
+        data.setFirstName = function(fname) {
+            data.firstName = fname;
+        };
+
+        data.getFirstName = function() {
+            return data.firstName;
+        };
+
+        data.setLastName = function(lname) {
+            data.lastName = lname;
+        };
+
+        data.getLastName = function() {
+            return data.lastName;
+        };
+
+        data.setPhone = function(phone) {
+            data.phone = phone;
+        };
+
+        data.getPhone = function() {
+            return data.phone;
+        };
+
+        return data;
+    });
+
+
 })(jQuery);

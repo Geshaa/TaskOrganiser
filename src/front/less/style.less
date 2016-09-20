@@ -94,16 +94,13 @@ img {
 	opacity: 0;
 	transition: all .4s ease;
 	visibility: hidden;
+	background-color: #4297f6;
+	padding: 30px;
 
 	&.active {
 		z-index: 21;
 		opacity: 1;
 		visibility: visible;
-	}
-
-	&[data-popup="addCategory"], &[data-popup="updateCategory"] {
-		background-color: #4297f6;
-		padding: 30px;
 	}
 }
 
@@ -182,6 +179,11 @@ img {
 
 	&__row {
 		margin: 20px auto;
+		
+		input + span {
+			margin-top:7px;
+			display: inline-block;
+		}
 	}
 
 	input, textarea {
@@ -343,6 +345,7 @@ img {
 
 	&__add {
 		cursor: pointer;
+		text-transform: capitalize;
 	}
 
 	&__item {

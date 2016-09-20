@@ -10,6 +10,7 @@ class Authenticate {
 	private $core;
 	private $statement;
 	private $results;
+	private $userID;
 
 	public function login() {
 		$this->core 		= Core::getInstance();
@@ -77,6 +78,21 @@ class Authenticate {
 
 		print json_encode($object);
 	}
+
+	public function getUserData() {
+		$this->core 		= Core::getInstance();
+
+		$this->userID 		= $_GET['userID'];
+
+		$this->statement = $this->core->dbh->prepare("SELECT firstName, lastName, phone from users WHERE id = :userID");
+		$this->statement->bindParam(':userID', $this->userID);
+		$this->statement->execute();
+
+		$this->results = $this->statement->fetchAll(PDO::FETCH_ASSOC);
+
+		print json_encode($this->results);
+	}
+
 }
 
 $user = new Authenticate();
@@ -88,6 +104,9 @@ switch($_REQUEST['mode']) {
 		break;
 	case 'register':
 		$user->register();
+		break;
+	case 'getUser':
+		$user->getUserData();
 		break;
 }
 ?>

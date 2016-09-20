@@ -1,13 +1,35 @@
 <h2>here is the dashboard</h2>
+<p>Welcome back, {{dc.firstName}} {{dc.lastName}}</p>
+<span data-popup-open="editUser">Edit</span>
 <a href="#/login" ng-click="dc.logout()" class="logout">Logout</a>
+
 
 <main class="main">
     <section ng-controller="CategoryController as cc">
         <ng-include src="'./categories/categories.view.html'" />
     </section>
 
-    <section ng-controller="TaskController as tc">
-        task controlller
-    </section>
+    <!--<section ng-controller="TaskController as tc">-->
+        <!--task controlller-->
+    <!--</section>-->
 
 </main>
+
+
+<div data-popup="editUser">
+    <h4>Edit User</h4>
+
+    <!--<span data-popup-close="addCategory" data-position="right">X</span>-->
+
+    <!--<form name="addCategoryForm" ng-submit="cc.add()" class="form form&#45;&#45;addCategory">-->
+        <!--<div class="form__row">-->
+            <!--<input type="text" name="name" ng-model="cc.name" placeholder="Name" required>-->
+        <!--</div>-->
+        <!--<div class="form__row">-->
+            <!--<textarea name="description" ng-model="cc.description" placeholder="description" id="" cols="35" rows="5" required></textarea>-->
+        <!--</div>-->
+        <!--<div class="form__row">-->
+            <!--<button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Add</button>-->
+        <!--</div>-->
+    <!--</form>-->
+</div>
