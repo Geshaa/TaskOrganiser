@@ -1,0 +1,11 @@
+<section class="tasks">
+    <span class="btn">add new task</span>
+
+    <article class="tasks__item" ng-repeat="task in tc.tasks">
+        <span>{{task.id}}</span>
+        <span>{{task.name}}</span>
+        <span>{{task.description}}</span>
+        <span>{{task.date}}</span>
+        <span>{{task.done}}</span>
+    </article>
+</section>
