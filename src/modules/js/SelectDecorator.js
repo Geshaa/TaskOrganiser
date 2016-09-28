@@ -1,4 +1,4 @@
-/*global jQuery:false, Browser:false, console:false*/
+/*global jQuery:false, console:false*/
 
 /*
 *
@@ -34,13 +34,17 @@ function SelectDecorator( selector ) {
 		options : '.'+_this.s.options
 	};
 
-	_this.isMobile = Browser.isMobile();
+	_this.isMobile = this.isMobileCheck();
 
 	$(selector).each(function() {
 		_this.parseElements($(this));
 	});
 
 	_this.registerEvents();
+}
+
+SelectDecorator.prototype.isMobileCheck = function() {
+	return ( 'ontouchstart' in document.documentElement ? true : false );
 }
 
 SelectDecorator.prototype.close = function( wrapper ) {

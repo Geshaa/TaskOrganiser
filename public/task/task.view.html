@@ -6,7 +6,7 @@
             <h1>{{task.name}}</h1>
             <p>{{task.description}}</p>
             <date>{{task.date}}</date>
-            <span class="tasks__edit" data-popup-open="updateTask" ng-click="tc.setInfo(task.id, task.name, task.description, task.date)"></span>
+            <span class="tasks__edit" data-popup-open="updateTask" ng-click="tc.setInfo(task.id, task.category_id, task.name, task.description, task.date)"></span>
         </div>
         <aside>
             <input type="checkbox" ng-model="task.name" id="{{task.name}}" ng-checked="{{task.done}}" ng-click="tc.setDone(task.id)">
@@ -22,7 +22,7 @@
 
     <form name="addTaskForm" ng-submit="tc.add()" class="form form--addTask">
         <div class="form__row" ng-controller="CategoryController as cc">
-            <select ng-model="tc.category" ng-options="category.id as category.name for category in cc.categories track by category.id">
+            <select class="selectBoxes" ng-model="tc.category" name="categoryID" ng-options="category.id as category.name for category in cc.categories track by category.id">
                 <option value="">Choose category</option>
             </select>
         </div>
@@ -33,9 +33,37 @@
             <textarea name="description" ng-model="tc.description" placeholder="description" id="" cols="35" rows="5" required></textarea>
         </div>
         <div class="form__row">
-            <input name="date" ng-model="tc.date" placeholder="Date" required pick-a-date="date" pick-a-date-options="{ format: 'yyyy-mm-dd' }">
+            <input name="date" ng-model="tc.date" placeholder="Date" pick-a-date="date" pick-a-date-options="{ format: 'yyyy-mm-dd' }" required>
         </div>
         <div class="form__row">
+            <p ng-show="tc.fields">All fields are required.</p>
+            <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Add</button>
+        </div>
+    </form>
+</div>
+
+<div data-popup="updateTask">
+    <h4>Update tasks</h4>
+    <span data-popup-close="updateTask" data-position="right">X</span>
+
+    <form name="updateTaskForm" ng-submit="tc.add()" class="form form--updateTask">
+        <div class="form__row" ng-controller="CategoryController as cc">
+            <!-- track by category.id -->
+            <select class="selectBoxes" ng-model="tc.category" name="categoryID" ng-options="category.id as category.name for category in cc.categories ">
+                <option value="">Choose category</option>
+            </select>
+        </div>
+        <div class="form__row">
+            <input type="text" name="name" ng-model="tc.name" placeholder="Name" required>
+        </div>
+        <div class="form__row">
+            <textarea name="description" ng-model="tc.description" placeholder="description" cols="35" rows="5" required></textarea>
+        </div>
+        <div class="form__row">
+            <input name="date" ng-model="tc.date" placeholder="Date" pick-a-date="date" pick-a-date-options="{ format: 'yyyy-mm-dd' }" required>
+        </div>
+        <div class="form__row">
+            <p ng-show="tc.fields">All fields are required.</p>
             <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Add</button>
         </div>
     </form>

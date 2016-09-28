@@ -4,6 +4,7 @@
 
 	$(function() {
 		var popup      		= new Popups();
+		//var slc 			= new SelectDecorator('.selectBoxes');
 	});
 
 
@@ -26,6 +27,7 @@
 			var elToOpen = $(this).attr('data-popup-open');
 
 			_this.overlay.addClass( _this.overlayVisibleCLass );
+
 			$('[data-popup="'+elToOpen+'"]').addClass(_this.popupActiveClass);
 		});
 
