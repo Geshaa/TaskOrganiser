@@ -1,7 +1,7 @@
 (function($) {
     'use strict';
 
-    var app = angular.module('app', ['ngCookies', 'ngRoute']);
+    var app = angular.module('app', ['ngCookies', 'ngRoute', 'angular-datepicker']);
     app.config(config);
     app.run(run);
 

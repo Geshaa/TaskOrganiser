@@ -1,5 +1,6 @@
 @import "../../modules/less/reset";
 @import "../../modules/less/fonts";
+@import "../../modules/less/angular-datepicker";
 @import "sprite";
 
 @main-form-text: #1f75e4;
@@ -104,6 +105,17 @@ img {
 	}
 }
 
+[data-popup-close] {
+	position: absolute;
+	top:10px;
+	cursor: pointer;
+	padding: 2px;
+
+	&[data-position="right"] {
+		right:10px;
+	}
+}
+
 .wrapper {
 	position: relative;
 	width: 100vw;
@@ -179,6 +191,10 @@ img {
 
 	&__row {
 		margin: 20px auto;
+
+		&:last-of-type {
+			margin-bottom: 0;
+		}
 		
 		input + span {
 			margin-top:7px;
@@ -384,10 +400,88 @@ img {
 	&__remove {
 		color: #c85959;
 	}
-
 }
 
+.tasks {
+	text-align: left;
+	
+	&__add {
+		cursor: pointer;
+	}
 
+	&__item {
+		margin: 15px 0;
+		text-align: left;
+		background-color: rgba(255, 255, 255, 0.7);
+		border-radius: 5px;
+		padding: 10px;
+		display: flex;
+		justify-content: space-between;
+
+		p {
+			margin: 5px 0;
+		}
+
+		div {
+			position: relative;
+			padding-right:10px;
+	 	}
+
+		aside {
+			max-width:50px;
+		}
+
+		input[type="checkbox"] {
+			display: none;
+			
+			& + label {
+				position: relative;
+				background-color: rgba(0, 0, 0, 0.26);
+				border-radius: 2em;
+				padding: 2px;
+				cursor: pointer;
+				width:45px;
+				height:21px;
+				display: block;
+				transition: all .3s ease;
+				
+				&:before {
+					position: absolute;
+					content: 'Off';
+					top:-2px;
+					left: 0;
+					width: ~'calc(50% + 4px)';
+					height: ~'calc(100% + 4px)';
+					display: block;
+					border-radius: 50%;
+					background-color: #fff;
+					font-size: 0;
+					transform: translateX(0);
+					transition: transform .3s ease;
+				}
+			}
+
+			&:checked + label {
+				background: rgba(63, 81, 181, 0.5);
+
+				&:before {
+					content: 'On';
+					background: #3f51b5;
+					transform: translateX(~'calc(100% - 8px)');
+				}
+			}
+		}
+	}
+
+	&__edit {
+		position: absolute;
+		cursor: pointer;
+		width:100%;
+		height:100%;
+		top:0;
+		left:0;
+	}
+}
 
 
 @import "../../modules/less/mediaQueries";

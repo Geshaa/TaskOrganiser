@@ -6,6 +6,7 @@
 		var popup      		= new Popups();
 	});
 
+
 	/* Popup functionality ---------*/
 	function Popups() {
 		this.openPopup       		= $('[data-popup-open]');
@@ -42,6 +43,5 @@
 			_this.overlay.removeClass( _this.overlayVisibleCLass );
 		});
 	};
-
 
 })(jQuery);
