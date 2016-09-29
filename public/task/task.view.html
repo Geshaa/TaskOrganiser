@@ -46,7 +46,7 @@
     <h4>Update tasks</h4>
     <span data-popup-close="updateTask" data-position="right">X</span>
 
-    <form name="updateTaskForm" ng-submit="tc.add()" class="form form--updateTask">
+    <form name="updateTaskForm" ng-submit="tc.update()" class="form form--updateTask">
         <div class="form__row" ng-controller="CategoryController as cc">
             <!-- track by category.id -->
             <select class="selectBoxes" ng-model="tc.category" name="categoryID" ng-options="category.id as category.name for category in cc.categories ">

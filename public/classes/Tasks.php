@@ -56,15 +56,15 @@ class Tasks {
         $this->done 		    = $_POST['done'];
         $this->userid 		    = $_POST['userid'];
         $this->id 		        = $_POST['taskid'];
+        $this->categoryid 		= $_POST['categoryid'];
 
-        $stm = $this->core->dbh->prepare("UPDATE tasks SET name = :name, description =:description, date =:date, done =:done  WHERE user_id = :userid AND id =:id");
-        $stm->bindParam(':id', $this->taskid);
+        $stm = $this->core->dbh->prepare("UPDATE tasks SET name = :name, description =:description, date =:date, category_id =:categoryid  WHERE user_id = :userid AND id =:id");
+        $stm->bindParam(':id', $this->id);
+        $stm->bindParam(':userid', $this->userid);
+        $stm->bindParam(':categoryid', $this->categoryid);
         $stm->bindParam(':name', $this->name);
         $stm->bindParam(':description', $this->description);
         $stm->bindParam(':date', $this->date);
-        $stm->bindParam(':done', $this->done);
-        $stm->bindParam(':userid', $this->userid);
-        $stm->bindParam(':id', $this->id);
         $stm->execute();
     }
 //

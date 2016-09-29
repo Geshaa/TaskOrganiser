@@ -14,6 +14,7 @@
 
         tc.setDone  = setDone;
         tc.add      = add;
+        tc.update   = update;
         tc.setInfo  = setInfo;
 
 
@@ -47,6 +48,29 @@
             })
             .then(function(response) {
                 console.log(response);
+                listAll();
+            });
+        }
+
+        function update() {
+
+            var data = $.param({
+                mode: 'update',
+                userid: $cookies.get('userID'),
+                taskid: tc.updateID,
+                categoryid: tc.category,
+                name: tc.name,
+                description: tc.description,
+                date: tc.date,
+            });
+
+            $http({
+                url: '../public/classes/Tasks.php',
+                method: 'POST',
+                data: data,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then(function(response) {
                 listAll();
             });
         }
