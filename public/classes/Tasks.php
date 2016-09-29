@@ -81,30 +81,24 @@ class Tasks {
         $stm->bindParam(':id', $this->id);
         $stm->execute();
     }
-//
-//    public function read() {
-//        $this->core 		= Core::getInstance();
-//        $this->userid 		= $_GET['userid'];
-//
-//        $this->statement = $this->core->dbh->prepare("SELECT id, name, description, date from categories WHERE user_id = :userid");
-//        $this->statement->bindParam(':userid', $this->userid);
-//        $this->statement->execute();
-//
-//        $this->results = $this->statement->fetchAll(PDO::FETCH_ASSOC);
-//
-//        print json_encode($this->results);
-//    }
-//
 
-//
-//    public function delete() {
-//        $this->core 		    = Core::getInstance();
-//        $this->categoryid 		= $_GET['categoryid'];
-//
-//        $this->statement = $this->core->dbh->prepare("DELETE from categories WHERE id = :categoryid");
-//        $this->statement->bindParam(':categoryid', $this->categoryid);
-//        $this->statement->execute();
-//    }
+    public function delete() {
+        $this->core 		    = Core::getInstance();
+        $this->id 		        = $_GET['taskid'];
+
+        $this->statement = $this->core->dbh->prepare("DELETE from tasks WHERE id = :id");
+        $this->statement->bindParam(':id', $this->id);
+        $this->statement->execute();
+    }
+
+    public function deleteCompleted() {
+        $this->core 		    = Core::getInstance();
+        $this->userid 		    = $_GET['userid'];
+
+        $this->statement = $this->core->dbh->prepare("DELETE from tasks WHERE user_id = :userid AND done = 1");
+        $this->statement->bindParam(':userid', $this->userid);
+        $this->statement->execute();
+    }
 }
 
 $task = new Tasks();
@@ -128,6 +122,9 @@ switch($_REQUEST['mode']) {
         break;
     case 'delete':
         $task->delete();
+        break;
+    case 'deleteCompleted':
+        $task->deleteCompleted();
         break;
 }
 

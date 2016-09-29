@@ -11,8 +11,11 @@
         <aside>
             <input type="checkbox" data-done="{{task.done}}" id="{{task.name}}" ng-checked="{{task.done}}" ng-click="tc.setDone($event, task.id)">
             <label for="{{task.name}}"></label>
+            <span class="tasks__delete btn" ng-click="tc.remove(task.id)">delete</span>
         </aside>
     </article>
+
+    <span class="tasks__removeCompleted" ng-click="tc.removeCompleted()">Remove Completed</span>
 </section>
 
 <!-- Popups here -->

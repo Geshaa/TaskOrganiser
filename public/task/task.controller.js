@@ -12,10 +12,12 @@
 
         listAll();
 
-        tc.setDone  = setDone;
-        tc.add      = add;
-        tc.update   = update;
-        tc.setInfo  = setInfo;
+        tc.add              = add;
+        tc.update           = update;
+        tc.remove           = remove;
+        tc.setInfo          = setInfo;
+        tc.setDone          = setDone;
+        tc.removeCompleted  = removeCompleted;
 
 
         function setDone($event, id) {
@@ -97,6 +99,26 @@
                 method: 'POST',
                 data: data,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then(function(response) {
+                listAll();
+            });
+        }
+
+        function remove(id) {
+            $http({
+                url: '../public/classes/Tasks.php?mode=delete&taskid='+id,
+                method: 'DELETE'
+            })
+            .then(function(response) {
+                listAll();
+            });
+        }
+
+        function removeCompleted() {
+            $http({
+                url: '../public/classes/Tasks.php?mode=deleteCompleted&userid='+$cookies.get('userID'),
+                method: 'DELETE'
             })
             .then(function(response) {
                 listAll();

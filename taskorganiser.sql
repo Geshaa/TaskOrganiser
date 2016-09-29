@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2016 at 01:22 PM
+-- Generation Time: Sep 29, 2016 at 03:37 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -58,14 +58,17 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `description` varchar(2000) COLLATE utf32_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `done` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
 
 --
 -- Dumping data for table `tasks`
 --
 
 INSERT INTO `tasks` (`id`, `user_id`, `category_id`, `name`, `description`, `date`, `done`) VALUES
-(1, 16, 1, 'Test Task', 'Very very very long description of test task', '2016-09-21', 0);
+(1, 16, 1, 'Test Task', 'Very very very long description of test task', '2016-09-21', 0),
+(2, 16, 2, 'New Task by GESH', 'GESH GESH GESH GESH GESH', '2016-09-21', 1),
+(3, 16, 5, 'Manchester category Task', 'Manchestereer manchester', '2016-09-16', 0),
+(4, 16, 3, 'Manchester', 'Man man man man united', '1899-11-28', 1);
 
 -- --------------------------------------------------------
 
@@ -129,7 +132,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `users`
 --
