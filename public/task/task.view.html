@@ -3,13 +3,13 @@
 
     <article class="tasks__item" ng-repeat="task in tc.tasks">
         <div>
-            <h1>{{task.name}}</h1>
+            <h1 ng-class="{{task.done}} ? 'completed': ''">{{task.name}}</h1>
             <p>{{task.description}}</p>
             <date>{{task.date}}</date>
             <span class="tasks__edit" data-popup-open="updateTask" ng-click="tc.setInfo(task.id, task.category_id, task.name, task.description, task.date)"></span>
         </div>
         <aside>
-            <input type="checkbox" ng-model="task.name" id="{{task.name}}" ng-checked="{{task.done}}" ng-click="tc.setDone(task.id)">
+            <input type="checkbox" data-done="{{task.done}}" id="{{task.name}}" ng-checked="{{task.done}}" ng-click="tc.setDone($event, task.id)">
             <label for="{{task.name}}"></label>
         </aside>
     </article>
@@ -64,7 +64,7 @@
         </div>
         <div class="form__row">
             <p ng-show="tc.fields">All fields are required.</p>
-            <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Add</button>
+            <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Update</button>
         </div>
     </form>
 </div>

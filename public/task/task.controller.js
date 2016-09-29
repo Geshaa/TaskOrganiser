@@ -18,8 +18,36 @@
         tc.setInfo  = setInfo;
 
 
-        function setDone(id, name) {
-           console.log(name);
+        function setDone($event, id) {
+            var attrVal = $($event.target).attr('data-done'),
+                newVal;
+
+            if ( attrVal == 0)
+                newVal = 1;
+            else
+                newVal = 0;
+
+            $($event.target).attr('data-done', newVal);
+            $($event.target).closest('.tasks__item').find('h1').toggleClass('completed');
+
+            var data = $.param({
+                mode: 'updateDone',
+                userid: $cookies.get('userID'),
+                taskid: id,
+                done: newVal
+            });
+
+            $http({
+                url: '../public/classes/Tasks.php',
+                method: 'POST',
+                data: data,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then(function(response) {
+                //console.log(response);
+                listAll();
+            });
+
         }
 
         function add() {

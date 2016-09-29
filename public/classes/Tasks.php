@@ -67,6 +67,20 @@ class Tasks {
         $stm->bindParam(':date', $this->date);
         $stm->execute();
     }
+
+    public function updateDone() {
+        $this->core 			= Core::getInstance();
+
+        $this->done 		    = $_POST['done'];
+        $this->userid 		    = $_POST['userid'];
+        $this->id 		        = $_POST['taskid'];
+
+        $stm = $this->core->dbh->prepare("UPDATE tasks SET done =:done WHERE user_id = :userid AND id =:id");
+        $stm->bindParam(':done', $this->done);
+        $stm->bindParam(':userid', $this->userid);
+        $stm->bindParam(':id', $this->id);
+        $stm->execute();
+    }
 //
 //    public function read() {
 //        $this->core 		= Core::getInstance();
@@ -108,6 +122,9 @@ switch($_REQUEST['mode']) {
         break;
     case 'update':
         $task->update();
+        break;
+    case 'updateDone':
+        $task->updateDone();
         break;
     case 'delete':
         $task->delete();
