@@ -99,6 +99,19 @@ class Tasks {
         $this->statement->bindParam(':userid', $this->userid);
         $this->statement->execute();
     }
+
+    public function uncompleted() {
+        $this->core 		= Core::getInstance();
+        $this->userid 		= $_GET['userid'];
+
+        $this->statement = $this->core->dbh->prepare("SELECT id from tasks WHERE user_id = :userid AND done = 0");
+        $this->statement->bindParam(':userid', $this->userid);
+        $this->statement->execute();
+
+        $this->results = $this->statement->fetchAll(PDO::FETCH_ASSOC);
+
+        echo count($this->results);
+    }
 }
 
 $task = new Tasks();
@@ -125,6 +138,9 @@ switch($_REQUEST['mode']) {
         break;
     case 'deleteCompleted':
         $task->deleteCompleted();
+        break;
+    case 'uncompleted':
+        $task->uncompleted();
         break;
 }
 

@@ -19,7 +19,6 @@
         tc.setDone          = setDone;
         tc.removeCompleted  = removeCompleted;
 
-
         function setDone($event, id) {
             var attrVal = $($event.target).attr('data-done'),
                 newVal;
@@ -133,6 +132,17 @@
             tc.date         = date;
         }
 
+        function countUncompleted() {
+            $http({
+                url: '../public/classes/Tasks.php?mode=uncompleted&userid='+$cookies.get('userID'),
+                method: 'GET',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then(function(response) {
+                tc.uncompleted = response.data;
+            })
+        }
+
         function listAll() {
             $http({
                 url: '../public/classes/Tasks.php?mode=list&userid='+$cookies.get('userID'),
@@ -141,7 +151,8 @@
             })
             .then(function(response) {
                 tc.tasks = response.data;
-            })
+                countUncompleted();
+            });
         }
     }
 
