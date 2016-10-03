@@ -27,6 +27,21 @@ class Tasks {
         print json_encode($this->results);
     }
 
+    public function listBy() {
+        $this->core         = Core::getInstance();
+        $this->userid       = $_GET['userid'];
+        $this->categoryid   = $_GET['categoryid'];
+
+        $this->statement = $this->core->dbh->prepare("SELECT id, category_id, name, description, date, done from tasks WHERE user_id = :userid AND category_id = :categoryid");
+        $this->statement->bindParam(':userid', $this->userid);
+        $this->statement->bindParam(':categoryid', $this->categoryid);
+        $this->statement->execute();
+
+        $this->results = $this->statement->fetchAll(PDO::FETCH_ASSOC);
+
+        print json_encode($this->results);
+    }
+
     public function create() {
         $this->core 			= Core::getInstance();
 
@@ -120,6 +135,9 @@ switch($_REQUEST['mode']) {
 
     case 'list':
         $task->listAll();
+        break;
+    case 'listBy':
+        $task->listBy();
         break;
     case 'create':
         $task->create();

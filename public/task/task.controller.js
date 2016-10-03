@@ -5,9 +5,9 @@
 
     app.controller('TaskController', TaskController);
 
-    TaskController.$inject = ['$cookies', '$http'];
+    TaskController.$inject = ['$cookies', '$http', '$rootScope'];
 
-    function TaskController($cookies, $http) {
+    function TaskController($cookies, $http, $rootScope) {
         var tc = this;
 
         listAll();
@@ -18,6 +18,16 @@
         tc.setInfo          = setInfo;
         tc.setDone          = setDone;
         tc.removeCompleted  = removeCompleted;
+
+
+        $rootScope.$on('listByCategory', function(e, data) {
+            listByCategory(data);
+        });
+
+        $rootScope.$on('listAllTasks', function() {
+            listAll();
+        });
+
 
         function setDone($event, id) {
             var attrVal = $($event.target).attr('data-done'),
@@ -48,7 +58,6 @@
                 //console.log(response);
                 listAll();
             });
-
         }
 
         function add() {
@@ -146,6 +155,18 @@
         function listAll() {
             $http({
                 url: '../public/classes/Tasks.php?mode=list&userid='+$cookies.get('userID'),
+                method: 'GET',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then(function(response) {
+                tc.tasks = response.data;
+                countUncompleted();
+            });
+        }
+
+        function listByCategory(categoryID) {
+            $http({
+                url: '../public/classes/Tasks.php?mode=listBy&categoryid='+categoryID+'&userid='+$cookies.get('userID'),
                 method: 'GET',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })

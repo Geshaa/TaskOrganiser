@@ -5,17 +5,20 @@
 
     app.controller('CategoryController', CategoryController);
 
-    CategoryController.$inject = ['$cookies', '$http'];
+    CategoryController.$inject = ['$cookies', '$http', '$rootScope'];
 
-    function CategoryController($cookies, $http) {
-        var cc = this;
+    function CategoryController($cookies, $http, $rootScope) {
+    var cc = this;
 
         list();
 
-        cc.add      = add;
-        cc.delete   = remove;
-        cc.update   = update;
-        cc.setInfo  = setInfo;
+        cc.add          = add;
+        cc.delete       = remove;
+        cc.update       = update;
+        cc.setInfo      = setInfo;
+        cc.list         = list;
+        cc.listAllTasks = listAllTasks;
+        cc.listBy       = listBy;
 
 
         function add() {
@@ -83,6 +86,14 @@
             .then(function(response) {
                 cc.categories = response.data;
             })
+        }
+
+        function listAllTasks() {
+            $rootScope.$broadcast('listAllTasks');
+        }
+
+        function listBy(id) {
+            $rootScope.$broadcast('listByCategory', id);
         }
     }
 

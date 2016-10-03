@@ -96,6 +96,7 @@ img {
 	transition: all .4s ease;
 	visibility: hidden;
 	background-color: #4297f6;
+	border-radius: 3px;
 	padding: 30px;
 
 	&.active {
@@ -127,9 +128,9 @@ img {
 
 	background: #50a3a2;
 	background: linear-gradient(to bottom right, #3743a5 0%, #2ea0de 100%);
-	
+
 	&.lowAnimations .bg-bubbles {
-		
+
 		li {
 			animation: square 50s infinite;
 
@@ -195,7 +196,7 @@ img {
 		&:last-of-type {
 			margin-bottom: 0;
 		}
-		
+
 		input + span {
 			margin-top:7px;
 			display: inline-block;
@@ -252,7 +253,7 @@ img {
 			background-color: rgb(245, 247, 249);
 		}
 	}
-	
+
 	a {
 		color: #000;
 		margin-top: 20px;
@@ -364,6 +365,16 @@ img {
 		text-transform: capitalize;
 	}
 
+	&__showAll {
+		cursor: pointer;
+		text-transform: capitalize;
+	}
+
+	&__sort {
+		cursor: pointer;
+		text-transform: capitalize;
+	}
+
 	&__item {
 		margin: 15px 0;
 		text-align: left;
@@ -382,7 +393,7 @@ img {
 			font-size:0.875rem;
 			font-style: italic;
 		}
-		
+
 		div {
 			text-align: right;
 		}
@@ -396,7 +407,7 @@ img {
 	&__edit {
 		color: #1f75e4;
 	}
-	
+
 	&__remove {
 		color: #c85959;
 	}
@@ -404,12 +415,12 @@ img {
 
 .tasks {
 	text-align: left;
-	
+
 	&__add {
 		cursor: pointer;
 		text-transform: capitalize;
 	}
-	
+
 	&__delete {
 		margin-top:10px;
 		cursor: pointer;
@@ -464,7 +475,7 @@ img {
 
 		input[type="checkbox"] {
 			display: none;
-			
+
 			& + label {
 				position: relative;
 				background-color: rgba(0, 0, 0, 0.26);
@@ -475,7 +486,7 @@ img {
 				height:21px;
 				display: block;
 				transition: all .3s ease;
-				
+
 				&:before {
 					position: absolute;
 					content: 'Off';
