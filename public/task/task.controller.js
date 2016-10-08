@@ -18,6 +18,7 @@
         tc.setInfo          = setInfo;
         tc.setDone          = setDone;
         tc.removeCompleted  = removeCompleted;
+        tc.undoDeleted      = undoDeleted;
 
 
         $rootScope.$on('listByCategory', function(e, data) {
@@ -113,12 +114,13 @@
             });
         }
 
-        function remove(id) {
+        function remove(id, categoryid, name, description, date, done) {
             $http({
                 url: '../public/classes/Tasks.php?mode=delete&taskid='+id,
                 method: 'DELETE'
             })
             .then(function(response) {
+                setUndo(categoryid, name, description, date, done);
                 listAll();
             });
         }
@@ -129,6 +131,49 @@
                 method: 'DELETE'
             })
             .then(function(response) {
+                listAll();
+            });
+        }
+
+        function setUndo(categoryid, name, description, date, done) {
+
+            var data = $.param({
+                mode: 'setUndo',
+                categoryid: categoryid,
+                name: name,
+                description: description,
+                date: date,
+                done: done,
+                userid: $cookies.get('userID')
+            });
+
+            $http({
+                url: '../public/classes/Tasks.php',
+                method: 'POST',
+                data: data,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then(function(response) {
+                console.log(response);
+            });
+        }
+
+        function undoDeleted() {
+
+            var data = $.param({
+                mode: 'undo',
+                userid: $cookies.get('userID')
+            });
+
+            $http({
+                url: '../public/classes/Tasks.php',
+                method: 'POST',
+                data: data,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then(function(response) {
+                console.log(response);
+                countUncompleted();
                 listAll();
             });
         }

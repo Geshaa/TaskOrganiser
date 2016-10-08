@@ -11,11 +11,13 @@
         <aside>
             <input type="checkbox" data-done="{{task.done}}" id="{{task.name}}" ng-checked="{{task.done}}" ng-click="tc.setDone($event, task.id)">
             <label for="{{task.name}}"></label>
-            <span class="tasks__delete btn" ng-click="tc.remove(task.id)">delete</span>
+            <span class="tasks__delete btn" ng-click="tc.remove(task.id, task.category_id, task.name, task.description, task.date, task.done)">delete</span>
         </aside>
     </article>
 
     <span class="tasks__removeCompleted btn" ng-click="tc.removeCompleted()">Remove Completed</span>
+
+    <br><span class="taks__undoDeleted" ng-click="tc.undoDeleted()">Undo Last Deleted Task</span>
 
     <p>you`ve got {{tc.uncompleted}} uncompleted tasks</p>
 </section>

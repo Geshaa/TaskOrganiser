@@ -127,6 +127,41 @@ class Tasks {
 
         echo count($this->results);
     }
+
+    public function setUndo() {
+        $this->core             = Core::getInstance();
+
+        $this->name             = $_POST['name'];
+        $this->description      = $_POST['description'];
+        $this->date             = $_POST['date'];
+        $this->done             = $_POST['done'];
+        $this->userid           = $_POST['userid'];
+        $this->categoryid       = $_POST['categoryid'];
+
+        $stm = $this->core->dbh->prepare("REPLACE INTO deleted (user_id, category_id, name, description, date, done) VALUES ( :userid, :categoryid, :name, :description, :date, :done)");
+        $stm->bindParam(':userid', $this->userid);
+        $stm->bindParam(':categoryid', $this->categoryid);
+        $stm->bindParam(':name', $this->name);
+        $stm->bindParam(':description', $this->description);
+        $stm->bindParam(':date', $this->date);
+        $stm->bindParam(':done', $this->done);
+        $stm->execute();
+
+        print "inserted";
+    }
+
+    public function undo() {
+        $this->core             = Core::getInstance();
+
+        $this->userid           = $_POST['userid'];
+
+        $stm = $this->core->dbh->prepare("INSERT INTO tasks (user_id, category_id, name, description, date, done) SELECT * FROM deleted WHERE user_id = :userid");
+        $stm->bindParam(':userid', $this->userid);
+
+        $stm->execute();
+
+        print 'copyed';
+    }
 }
 
 $task = new Tasks();
@@ -159,6 +194,12 @@ switch($_REQUEST['mode']) {
         break;
     case 'uncompleted':
         $task->uncompleted();
+        break;
+    case 'setUndo':
+        $task->setUndo();
+        break;
+    case 'undo':
+        $task->undo();
         break;
 }
 
