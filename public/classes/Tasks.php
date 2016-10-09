@@ -106,6 +106,17 @@ class Tasks {
         $this->statement->execute();
     }
 
+    public function deleteAll() {
+        $this->core             = Core::getInstance();
+        $this->userid           = $_GET['userid'];
+        $this->categoryid       = $_GET['categoryid'];
+
+        $this->statement = $this->core->dbh->prepare("DELETE from tasks WHERE category_id = :category_id AND user_id = :user_id");
+        $this->statement->bindParam(':category_id', $this->categoryid);
+        $this->statement->bindParam(':user_id', $this->userid);
+        $this->statement->execute();
+    }
+
     public function deleteCompleted() {
         $this->core 		    = Core::getInstance();
         $this->userid 		    = $_GET['userid'];
@@ -188,6 +199,9 @@ switch($_REQUEST['mode']) {
         break;
     case 'delete':
         $task->delete();
+        break;
+    case 'deleteAll':
+        $task->deleteAll();
         break;
     case 'deleteCompleted':
         $task->deleteCompleted();

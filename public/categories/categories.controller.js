@@ -46,8 +46,8 @@
                 method: 'DELETE'
             })
             .then(function(response) {
-                console.log(response);
                 list();
+                $rootScope.$broadcast('deleteCategory', id);
             });
         }
 

@@ -29,6 +29,10 @@
             listAll();
         });
 
+        $rootScope.$on('deleteCategory', function(e, data) {
+            removeFromCategory(data);
+        });
+
 
         function setDone($event, id) {
             var attrVal = $($event.target).attr('data-done'),
@@ -131,6 +135,17 @@
                 method: 'DELETE'
             })
             .then(function(response) {
+                listAll();
+            });
+        }
+
+        function removeFromCategory(categoryid) {
+            $http({
+                url: '../public/classes/Tasks.php?mode=deleteAll&userid='+$cookies.get('userID')+'&categoryid='+categoryid,
+                method: 'DELETE'
+            })
+            .then(function(response) {
+                window.console.log(response);
                 listAll();
             });
         }

@@ -15,6 +15,7 @@
 		this.overlay         		= $('[data-overlay="popup"]');
 		this.overlayVisibleCLass 	= 'visible';
 		this.popupActiveClass    	= 'active';
+
 		this.events();
 	}
 
@@ -43,6 +44,13 @@
 		$(document).on( 'click', this.overlay.selector, function() {
 			$('[data-popup]').removeClass('active');
 			_this.overlay.removeClass( _this.overlayVisibleCLass );
+		});
+
+		$(document).on('keyup', function(e) {
+			if (e.keyCode === 27) {
+				$('[data-popup]').removeClass('active');
+				_this.overlay.removeClass( _this.overlayVisibleCLass );
+			}
 		});
 	};
 

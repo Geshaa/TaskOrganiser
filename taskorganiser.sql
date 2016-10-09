@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 4.4.12
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 29, 2016 at 03:37 PM
--- Server version: 5.6.26
--- PHP Version: 5.6.12
+-- Generation Time: 
+-- Версия на сървъра: 5.6.25
+-- PHP Version: 5.6.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Структура на таблица `categories`
 --
 
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -32,10 +32,10 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `date` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `categories`
+-- Схема на данните от таблица `categories`
 --
 
 INSERT INTO `categories` (`id`, `user_id`, `name`, `description`, `date`) VALUES
@@ -47,7 +47,30 @@ INSERT INTO `categories` (`id`, `user_id`, `name`, `description`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tasks`
+-- Структура на таблица `deleted`
+--
+
+CREATE TABLE IF NOT EXISTS `deleted` (
+  `user_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `name` varchar(300) COLLATE utf32_unicode_ci NOT NULL,
+  `description` varchar(2000) COLLATE utf32_unicode_ci NOT NULL,
+  `date` date NOT NULL,
+  `done` tinyint(4) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+--
+-- Схема на данните от таблица `deleted`
+--
+
+INSERT INTO `deleted` (`user_id`, `category_id`, `name`, `description`, `date`, `done`) VALUES
+(14, 2, 'Another User', 'asdasd asdasd asd', '2016-10-29', 0),
+(16, 13, 'na na delete', 'delete', '2016-10-18', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура на таблица `tasks`
 --
 
 CREATE TABLE IF NOT EXISTS `tasks` (
@@ -58,22 +81,21 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `description` varchar(2000) COLLATE utf32_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `done` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
 
 --
--- Dumping data for table `tasks`
+-- Схема на данните от таблица `tasks`
 --
 
 INSERT INTO `tasks` (`id`, `user_id`, `category_id`, `name`, `description`, `date`, `done`) VALUES
 (1, 16, 1, 'Test Task', 'Very very very long description of test task', '2016-09-21', 0),
-(2, 16, 2, 'New Task by GESH', 'GESH GESH GESH GESH GESH', '2016-09-21', 1),
 (3, 16, 5, 'Manchester category Task', 'Manchestereer manchester', '2016-09-16', 0),
-(4, 16, 3, 'Manchester', 'Man man man man united', '1899-11-28', 1);
+(10, 16, 3, 'new test delete', 'neww test delete', '2016-10-29', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Структура на таблица `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -86,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Схема на данните от таблица `users`
 --
 
 INSERT INTO `users` (`id`, `firstName`, `lastName`, `phone`, `email`, `password`) VALUES
@@ -105,6 +127,12 @@ INSERT INTO `users` (`id`, `firstName`, `lastName`, `phone`, `email`, `password`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `deleted`
+--
+ALTER TABLE `deleted`
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- Indexes for table `tasks`
@@ -127,12 +155,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `users`
 --
