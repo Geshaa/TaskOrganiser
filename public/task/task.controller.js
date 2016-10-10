@@ -193,9 +193,9 @@
             });
         }
 
-        function setInfo(id, category_id, name, description, date) {
+        function setInfo(id, categoryID, name, description, date) {
             tc.updateID     = id;
-            tc.category     = category_id;
+            tc.category     = categoryID;
             tc.name         = name;
             tc.description  = description;
             tc.date         = date;
