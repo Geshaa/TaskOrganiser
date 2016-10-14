@@ -2,17 +2,17 @@
 <form name="loginForm" ng-submit="lc.login()" class="form">
 	<div class="form__row">
         <input type="email" name="email" id="email" ng-model="lc.email" placeholder="Email" required />
-		<span ng-show="form.email.$dirty && form.email.$error.required" class="form__row__error">Email is required</span>
+		<span ng-show="loginForm.email.$dirty && loginForm.email.$error.required" class="form__row__error">Email is required</span>
 	</div>
 	<div class="form__row">
-        <input type="password" name="password" id="password" ng-model="lc.password" placeholder="password" required />
-		<span ng-show="form.password.$dirty && form.password.$error.required" class="form__row__error">Password is required</span>
+        <input type="password" name="password" id="password" ng-model="lc.password" placeholder="Password" required />
+		<span ng-show="loginForm.password.$dirty && loginForm.password.$error.required" class="form__row__error">Password is required</span>
 	</div>
 	<div class="form__row">
 		<p ng-show="lc.wrongData">Wrong credentials</p>
 	</div>
 	<div class="form__row">
-		<button type="submit" ng-disabled="form.$invalid || lc.dataLoading" class="btn btn-primary">Login</button>
+		<button type="submit" ng-disabled="lc.dataLoading" class="btn btn-primary">Login</button>
         <img ng-if="lc.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
         <a href="#/register" class="btn">Register</a>
 	</div>

@@ -15,6 +15,7 @@
 @task-done-line: 						#000;
 @task-done-circle-background: 			#fff;
 @task-done-circle-active-background: 	#3f51b5;
+@main-title: 							rgba(255, 255, 255, 0.8);
 
 @keyframes square {
 	0%   { transform: translateY(0); }
@@ -158,6 +159,10 @@ img {
 	background: @main-gradient-end;
 	background: linear-gradient(to bottom right, @main-gradient-start 0%, @main-gradient-end 100%);
 
+	&--noFlex {
+		display: block;
+	}
+
 	&.lowAnimations .bg-bubbles {
 
 		li {
@@ -211,6 +216,8 @@ img {
 		font-size: 40px;
 		transition-duration: 1s;
 		transition-timing-function: ease-in-put;
+		color: @main-title;
+		margin-bottom: 20px;
 	}
 }
 
@@ -218,6 +225,11 @@ img {
 	position: relative;
 	padding: 20px 0;
 	z-index: 2;
+
+	&--register span {
+		margin-top: 10px;
+		display: inline-block;
+	}
 
 	&__row {
 		margin: 20px auto;
@@ -382,6 +394,34 @@ img {
 .main {
 	display: flex;
 	margin: 30px auto;
+}
+
+.userInfo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: @main-title;
+
+	p {
+		margin-right: 15px;
+	}
+
+	a, span {
+		width: 20px;
+		height: 20px;
+		cursor: pointer;
+		display: inline-block;
+		margin: 0 5px;
+		background-size: cover;
+	}
+
+	span {
+		#Sprite > .edit();
+	}
+
+	a {
+		#Sprite > .logout();
+	}
 }
 
 .categories {

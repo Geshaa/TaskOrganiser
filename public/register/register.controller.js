@@ -30,10 +30,7 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
             .then(function(response) {
-                window.console.log(response.data);
-
                 if ( response.data[0] === -1) {
-
                     rc.taken = true;
                 }
                 else {

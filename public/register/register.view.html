@@ -1,28 +1,28 @@
 <h2>Register</h2>
-<form name="form" ng-submit="rc.register()" role="form" class="form">
+<form name="registerForm" ng-submit="rc.register()" role="form" class="form form--register">
 	<div class="form__row">
 		<input type="text" name="firstName" id="firstname" ng-model="rc.firstName" placeholder="First Name" required />
-		<span ng-show="form.firstName.$dirty && form.firstName.$error.required">First name is required</span>
+		<span ng-show="registerForm.firstName.$dirty && registerForm.firstName.$error.required">First name is required</span>
 	</div>
 	<div class="form__row">
 		<input type="text" name="lastName" id="lastname" ng-model="rc.lastName" placeholder="Last Name" required />
-		<span ng-show="form.lastName.$dirty && form.lastName.$error.required">Last name is required</span>
+		<span ng-show="registerForm.lastName.$dirty && registerForm.lastName.$error.required">Last name is required</span>
 	</div>
 	<div class="form__row">
 		<input type="tel" name="phone" id="phone" ng-model="rc.phone" placeholder="Phone" required />
-		<span ng-show="form.phone.$dirty && form.phone.$error.required">Phone is required</span>
+		<span ng-show="registerForm.phone.$dirty && registerForm.phone.$error.required">Phone is required</span>
 	</div>
 	<div class="form__row">
 		<input type="email" name="email" id="email" ng-model="rc.email" placeholder="Email" required />
-		<span ng-show="form.email.$dirty && form.email.$error.required">Email is required</span>
+		<span ng-show="registerForm.email.$dirty && registerForm.email.$error.required">Email is required</span>
 		<span ng-show="rc.taken">Email is taken</span>
 	</div>
 	<div class="form__row">
 		<input type="password" name="password" id="password" ng-model="rc.password" placeholder="Password" required />
-		<span ng-show="form.password.$dirty && form.password.$error.required">Password is required</span>
+		<span ng-show="registerForm.password.$dirty && registerForm.password.$error.required">Password is required</span>
 	</div>
 	<div class="form__row">
-		<button type="submit" ng-disabled="form.$invalid || rc.dataLoading" class="btn btn-primary">Register</button>
+		<button type="submit" ng-disabled="rc.dataLoading" class="btn btn-primary">Register</button>
 		<img ng-if="rc.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 		<a href="#/login" class="btn btn-link">Cancel</a>
 	</div>

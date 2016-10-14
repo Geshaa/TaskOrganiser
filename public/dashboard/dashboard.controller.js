@@ -15,7 +15,7 @@
         if ( ! $cookies.get('userID'))
             $location.path('/login');
 
-        $('.wrapper').addClass('lowAnimations');
+        $('.wrapper').addClass('lowAnimations wrapper--noFlex');
 
         //check if userData is available or make request to DB
         if ( typeof userData.getFirstName() === 'undefined' || userData.getFirstName() === '')
