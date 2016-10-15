@@ -1,6 +1,6 @@
 <section class="categories">
     <span data-popup-open="addCategory" class="btn categories__add">add new</span>
-    <span class="categories__showAll" ng-click="cc.listAllTasks()">View all tasks</span>
+    <span class="categories__showAll" ng-click="cc.listAllTasks()" ng-hide="cc.noCategories">View all tasks</span>
     <article ng-repeat="category in cc.categories" class="categories__item">
         <aside>
             <h3><span class="categories__sort" ng-click="cc.listBy(category.id)">{{category.name}}</span></h3>
@@ -12,6 +12,7 @@
             <span ng-click="cc.delete(category.id)" class="categories__remove">delete</span>
         </div>
     </article>
+    <p class="categories__error" ng-show="cc.noCategories">There are not categories added yet.</p>
 </section>
 
 

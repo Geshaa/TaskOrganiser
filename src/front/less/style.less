@@ -135,6 +135,11 @@ img {
 		opacity: 1;
 		visibility: visible;
 	}
+
+	h4 {
+		color: @main-title;
+		font-size: 1.125rem;
+	}
 }
 
 [data-popup-close] {
@@ -413,14 +418,23 @@ img {
 		display: inline-block;
 		margin: 0 5px;
 		background-size: cover;
+		transition: all .3s ease;
 	}
 
 	span {
 		#Sprite > .edit();
+
+		&:hover {
+			#Sprite > .edit(black);
+		}
 	}
 
 	a {
 		#Sprite > .logout();
+
+		&:hover {
+			#Sprite > .logout(black);
+		}
 	}
 }
 
@@ -455,6 +469,10 @@ img {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+
+			h3 {
+				max-width: 245px;
+			}
 		}
 
 		p {

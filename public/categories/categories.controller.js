@@ -84,6 +84,8 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
             .then(function(response) {
+                if (!response.data[0])
+                    cc.noCategories = true;
                 cc.categories = response.data;
             })
         }

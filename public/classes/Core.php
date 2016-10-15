@@ -23,6 +23,7 @@ class Core
         try {
             $this->dbh = new PDO($dsn, $user, $password);
             $this->dbh->exec('set names utf8');
+            $this->dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
         } catch (PDOException $e) {
             echo 'Connection failed: ' . $e->getMessage();
         }

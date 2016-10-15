@@ -49,6 +49,10 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
             .then(function(response) {
+
+                if ( !response.data[0] )
+                    return;
+
                 data.firstName = response.data[0].firstName;
                 data.lastName = response.data[0].lastName;
                 data.phone = response.data[0].phone;
