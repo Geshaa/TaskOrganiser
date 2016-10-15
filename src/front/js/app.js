@@ -36,7 +36,7 @@
 
 			$('[data-popup="'+elToClose+'"]').removeClass('active');
 			_this.overlay.removeClass( _this.overlayVisibleCLass );
-			//$('[data-popup="'+elToClose+'"]').find('input, textarea').val('');
+			$('[data-popup]').find('input, textarea').val('');
 
 		});
 
@@ -48,6 +48,7 @@
 		$(document).on('keyup', function(e) {
 			if (e.keyCode === 27) {
 				$('[data-popup]').removeClass('active');
+				$('[data-popup]').find('input, textarea').val('');
 				_this.overlay.removeClass( _this.overlayVisibleCLass );
 			}
 		});

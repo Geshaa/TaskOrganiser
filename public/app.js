@@ -90,6 +90,7 @@
         this.close = function() {
             $('[data-popup]').removeClass('active');
             $('[data-overlay="popup"]').removeClass('visible');
+            $('[data-popup]').find('input, textarea').val('');
         }
     });
 
