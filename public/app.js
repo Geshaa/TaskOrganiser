@@ -86,5 +86,12 @@
         return data;
     });
 
+    app.service('popupService', function() {
+        this.close = function() {
+            $('[data-popup]').removeClass('active');
+            $('[data-overlay="popup"]').removeClass('visible');
+        }
+    });
+
 
 })(jQuery);

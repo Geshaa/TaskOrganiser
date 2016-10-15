@@ -73,7 +73,7 @@ class Tasks {
         $this->id 		        = $_POST['taskid'];
         $this->categoryid 		= $_POST['categoryid'];
 
-        $stm = $this->core->dbh->prepare("UPDATE tasks SET name = :name, description =:description, date =:date, category_id =:categoryid  WHERE user_id = :userid AND id =:id");
+        $stm = $this->core->dbh->prepare("UPDATE tasks SET name = :name, description = :description, date = :date, category_id = :categoryid  WHERE user_id = :userid AND id = :id");
         $stm->bindParam(':id', $this->id);
         $stm->bindParam(':userid', $this->userid);
         $stm->bindParam(':categoryid', $this->categoryid);
@@ -90,7 +90,7 @@ class Tasks {
         $this->userid 		    = $_POST['userid'];
         $this->id 		        = $_POST['taskid'];
 
-        $stm = $this->core->dbh->prepare("UPDATE tasks SET done =:done WHERE user_id = :userid AND id =:id");
+        $stm = $this->core->dbh->prepare("UPDATE tasks SET done = :done WHERE user_id = :userid AND id = :id");
         $stm->bindParam(':done', $this->done);
         $stm->bindParam(':userid', $this->userid);
         $stm->bindParam(':id', $this->id);
@@ -139,6 +139,19 @@ class Tasks {
         echo count($this->results);
     }
 
+    public function completed() {
+        $this->core         = Core::getInstance();
+        $this->userid       = $_GET['userid'];
+
+        $this->statement = $this->core->dbh->prepare("SELECT id from tasks WHERE user_id = :userid AND done = 1");
+        $this->statement->bindParam(':userid', $this->userid);
+        $this->statement->execute();
+
+        $this->results = $this->statement->fetchAll(PDO::FETCH_ASSOC);
+
+        echo count($this->results);
+    }
+
     public function setUndo() {
         $this->core             = Core::getInstance();
 
@@ -157,8 +170,6 @@ class Tasks {
         $stm->bindParam(':date', $this->date);
         $stm->bindParam(':done', $this->done);
         $stm->execute();
-
-        print "inserted";
     }
 
     public function undo() {
@@ -208,6 +219,9 @@ switch($_REQUEST['mode']) {
         break;
     case 'uncompleted':
         $task->uncompleted();
+        break;
+     case 'completed':
+        $task->completed();
         break;
     case 'setUndo':
         $task->setUndo();

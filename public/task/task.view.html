@@ -15,11 +15,13 @@
         </aside>
     </article>
 
-    <span class="tasks__removeCompleted btn" ng-click="tc.removeCompleted()">Remove Completed</span>
+    <p class="tasks__error" ng-show="tc.noTasks">There are not tasks added yet.</p>
+
+    <span class="tasks__removeCompleted btn" ng-hide="tc.completed == 0" ng-click="tc.removeCompleted()">Remove Completed</span>
 
     <br><span class="taks__undoDeleted" ng-click="tc.undoDeleted()">Undo Last Deleted Task</span>
 
-    <p>you`ve got {{tc.uncompleted}} uncompleted tasks</p>
+    <p ng-hide="tc.uncompleted == 0">you`ve got {{tc.uncompleted}} uncompleted tasks</p>
 </section>
 
 <!-- Popups here -->

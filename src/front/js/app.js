@@ -4,7 +4,6 @@
 
 	$(function() {
 		var popup      		= new Popups();
-		//var slc 			= new SelectDecorator('.selectBoxes');
 	});
 
 

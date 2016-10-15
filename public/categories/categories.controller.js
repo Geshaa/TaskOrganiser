@@ -5,9 +5,9 @@
 
     app.controller('CategoryController', CategoryController);
 
-    CategoryController.$inject = ['$cookies', '$http', '$rootScope'];
+    CategoryController.$inject = ['$cookies', '$http', '$rootScope', 'popupService'];
 
-    function CategoryController($cookies, $http, $rootScope) {
+    function CategoryController($cookies, $http, $rootScope, popupService) {
     var cc = this;
 
         list();
@@ -37,6 +37,7 @@
             })
             .then(function(response) {
                 list();
+                popupService.close();
             });
         }
 
@@ -68,6 +69,7 @@
             })
             .then(function(response) {
                 list();
+                popupService.close();
             });
         }
 

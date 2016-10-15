@@ -48,7 +48,7 @@ class Categories {
         $this->description 		= $_POST['description'];
         $this->categoryid 	    = $_POST['id'];
 
-        $stm = $this->core->dbh->prepare("UPDATE categories SET name = :name, description =:description  WHERE id = :id");
+        $stm = $this->core->dbh->prepare("UPDATE categories SET name = :name, description = :description  WHERE id = :id");
         $stm->bindParam(':id', $this->categoryid);
         $stm->bindParam(':name', $this->name);
         $stm->bindParam(':description', $this->description);

@@ -79,6 +79,26 @@ class Authenticate {
 		print json_encode($object);
 	}
 
+	public function update() {
+		$this->core 			= Core::getInstance();
+
+		$this->firstName 		= $_POST['fname'];
+		$this->lastName 		= $_POST['lname'];
+		$this->phone 			= $_POST['phone'];
+		$this->password 		= $_POST['password'];
+		$this->userID 			= $_POST['userid'];
+
+		$hash = password_hash($this->password, PASSWORD_DEFAULT);
+
+		$stm = $this->core->dbh->prepare("UPDATE users SET firstName = :firstName, lastName = :lastName, phone = :phone, password = :password WHERE id = :id");
+		$stm->bindParam(':id', $this->userID);
+		$stm->bindParam(':firstName', $this->firstName);
+		$stm->bindParam(':lastName', $this->lastName);
+		$stm->bindParam(':phone', $this->phone);
+		$stm->bindParam(':password', $hash);
+		$stm->execute();
+	}
+
 	public function getUserData() {
 		$this->core 		= Core::getInstance();
 
@@ -104,6 +124,9 @@ switch($_REQUEST['mode']) {
 		break;
 	case 'register':
 		$user->register();
+		break;
+	case 'update':
+		$user->update();
 		break;
 	case 'getUser':
 		$user->getUserData();

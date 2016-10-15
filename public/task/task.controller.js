@@ -5,9 +5,9 @@
 
     app.controller('TaskController', TaskController);
 
-    TaskController.$inject = ['$cookies', '$http', '$rootScope'];
+    TaskController.$inject = ['$cookies', '$http', '$rootScope', 'popupService'];
 
-    function TaskController($cookies, $http, $rootScope) {
+    function TaskController($cookies, $http, $rootScope, popupService) {
         var tc = this;
 
         listAll();
@@ -60,7 +60,6 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
             .then(function(response) {
-                //console.log(response);
                 listAll();
             });
         }
@@ -90,8 +89,8 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
             .then(function(response) {
-                console.log(response);
                 listAll();
+                popupService.close();
             });
         }
 
@@ -115,6 +114,7 @@
             })
             .then(function(response) {
                 listAll();
+                popupService.close();
             });
         }
 
@@ -145,7 +145,6 @@
                 method: 'DELETE'
             })
             .then(function(response) {
-                window.console.log(response);
                 listAll();
             });
         }
@@ -167,9 +166,6 @@
                 method: 'POST',
                 data: data,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
-                console.log(response);
             });
         }
 
@@ -187,7 +183,6 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
             .then(function(response) {
-                console.log(response);
                 countUncompleted();
                 listAll();
             });
@@ -212,6 +207,17 @@
             })
         }
 
+        function countCompleted() {
+            $http({
+                url: '../public/classes/Tasks.php?mode=completed&userid='+$cookies.get('userID'),
+                method: 'GET',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then(function(response) {
+                tc.completed = response.data;
+            })
+        }
+
         function listAll() {
             $http({
                 url: '../public/classes/Tasks.php?mode=list&userid='+$cookies.get('userID'),
@@ -219,8 +225,12 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
             .then(function(response) {
+                if (!response.data[0])
+                    tc.noTasks = true;
+
                 tc.tasks = response.data;
                 countUncompleted();
+                countCompleted();
             });
         }
 
