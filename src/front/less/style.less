@@ -1,6 +1,7 @@
 @import "../../modules/less/reset";
 @import "../../modules/less/fonts";
 @import "../../modules/less/angular-datepicker";
+@import url('https://fonts.googleapis.com/css?family=Proza+Libre:400,500');
 @import "sprite";
 
 @main-form-text: 						#1f75e4;
@@ -16,6 +17,8 @@
 @task-done-circle-background: 			#fff;
 @task-done-circle-active-background: 	#3f51b5;
 @main-title: 							rgba(255, 255, 255, 0.8);
+@tasks-remove-button: 					#c85959;
+
 
 @keyframes square {
 	0%   { transform: translateY(0); }
@@ -35,6 +38,7 @@ html, body {
 	-webkit-overflow-scrolling: touch;
 	backface-visibility: hidden;
 	-webkit-touch-callout: none;
+	font-family: 'Proza Libre', sans-serif;
 }
 
 input {
@@ -399,6 +403,7 @@ img {
 .main {
 	display: flex;
 	margin: 30px auto;
+	justify-content: center;
 }
 
 .userInfo {
@@ -442,6 +447,13 @@ img {
 	width: 350px;
 	margin-right: 30px;
 	text-align: left;
+
+	&__header {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
 
 	&__add {
 		cursor: pointer;
@@ -502,6 +514,7 @@ img {
 
 .tasks {
 	text-align: left;
+	width: 600px;
 
 	&__add {
 		cursor: pointer;
@@ -525,6 +538,8 @@ img {
 
 		h1 {
 			position: relative;
+			font-weight: 500;
+			font-size: 1.125rem;
 
 			&:before {
 				position: absolute;
@@ -547,17 +562,21 @@ img {
 		}
 
 		p {
-			margin: 5px 0;
+			margin: 10px 0;
+			font-style: italic;
 		}
 
 		div {
 			position: relative;
 			width: 100%;
-			padding-right:10px;
+			padding-right:20px;
 	 	}
 
 		aside {
-			max-width:50px;
+			max-width: 50px;
+			display: flex;
+			flex-flow: column;
+			justify-content: space-around;
 		}
 
 		input[type="checkbox"] {
@@ -609,6 +628,11 @@ img {
 		height:100%;
 		top:0;
 		left:0;
+	}
+
+	&__delete {
+		color: @tasks-remove-button;
+		text-transform: capitalize;
 	}
 }
 
