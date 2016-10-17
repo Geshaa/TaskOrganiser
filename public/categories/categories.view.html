@@ -1,6 +1,6 @@
 <section class="categories">
     <div class="categories__header">
-        <span data-popup-open="addCategory" class="btn categories__add">add new</span>
+        <span data-popup-open="addCategory" class="btn categories__add" ng-click="cc.setEmpty()">add new</span>
         <span class="categories__showAll" ng-click="cc.listAllTasks()" ng-hide="cc.noCategories">View all tasks</span>
     </div>
     <article ng-repeat="category in cc.categories" class="categories__item">

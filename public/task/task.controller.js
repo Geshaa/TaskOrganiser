@@ -19,6 +19,7 @@
         tc.setDone          = setDone;
         tc.removeCompleted  = removeCompleted;
         tc.undoDeleted      = undoDeleted;
+        tc.setEmpty         = setEmpty;
 
 
         $rootScope.$on('listByCategory', function(e, data) {
@@ -186,6 +187,12 @@
                 countUncompleted();
                 listAll();
             });
+        }
+
+        function setEmpty() {
+            tc.name         = null;
+            tc.description  = null;
+            tc.date         = null;
         }
 
         function setInfo(id, categoryID, name, description, date) {

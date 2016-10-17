@@ -19,6 +19,7 @@
         cc.list         = list;
         cc.listAllTasks = listAllTasks;
         cc.listBy       = listBy;
+        cc.setEmpty     = setEmpty;
 
 
         function add() {
@@ -77,6 +78,11 @@
             cc.updateID     = id;
             cc.name         = name;
             cc.description  = description;
+        }
+
+        function setEmpty() {
+            cc.name         = null;
+            cc.description  = null;
         }
 
         function list() {

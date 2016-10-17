@@ -13,6 +13,7 @@
         dc.logout   = logout;
         dc.editUser = editUser;
 
+
         if ( ! $cookies.get('userID'))
             $location.path('/login');
 
@@ -23,6 +24,9 @@
             userData.init().then(setData);
         else
             setData();
+
+
+
 
         function logout() {
             $cookies.remove('userID');
