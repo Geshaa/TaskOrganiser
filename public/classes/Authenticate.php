@@ -29,6 +29,9 @@ class Authenticate {
 		if( count($this->results) > 0 && password_verify($this->password, $this->results['password']) ) {
 			$object[] = 1;
 			$object[] = intval($this->results['id']);
+
+			session_start();
+			$_SESSION['userID'] = $this->results['id'];
 		}
 		else {
 			$object[] = -1;
@@ -74,6 +77,9 @@ class Authenticate {
 
 			$object[] = 1;
 			$object[] = intval($this->results['id']);
+
+			session_start();
+			$_SESSION['userID'] = $this->results['id'];
 		}
 
 		print json_encode($object);

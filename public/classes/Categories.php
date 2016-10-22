@@ -65,6 +65,11 @@ class Categories {
     }
 }
 
+session_start();
+
+if ( !isset($_SESSION['userID']) && empty( $_SESSION['userID']) )
+    return;
+
 $category = new Categories();
 
 switch($_REQUEST['mode']) {

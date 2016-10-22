@@ -186,6 +186,11 @@ class Tasks {
     }
 }
 
+session_start();
+
+if ( !isset($_SESSION['userID']) && empty( $_SESSION['userID']) )
+    return;
+
 $task = new Tasks();
 
 switch($_REQUEST['mode']) {

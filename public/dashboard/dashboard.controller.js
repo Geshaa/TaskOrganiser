@@ -26,8 +26,6 @@
             setData();
 
 
-
-
         function logout() {
             $cookies.remove('userID');
         }
