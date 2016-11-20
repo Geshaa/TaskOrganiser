@@ -19,7 +19,7 @@
 
     <span class="tasks__removeCompleted btn" ng-hide="tc.completed == 0" ng-click="tc.removeCompleted()">Remove Completed</span>
 
-    <br><span class="taks__undoDeleted" ng-click="tc.undoDeleted()">Undo Last Deleted Task</span>
+    <br><span class="taks__undoDeleted" ng-click="tc.undoDeleted()" ng-show="tc.showUndo">Undo Last Deleted Task</span>
 
     <p ng-hide="tc.uncompleted == 0">you`ve got {{tc.uncompleted}} uncompleted tasks</p>
 </section>

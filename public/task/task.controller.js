@@ -5,9 +5,9 @@
 
     app.controller('TaskController', TaskController);
 
-    TaskController.$inject = ['$cookies', '$http', '$rootScope', 'popupService'];
+    TaskController.$inject = ['$cookies', '$http', '$rootScope', 'popupService', 'tasksActions'];
 
-    function TaskController($cookies, $http, $rootScope, popupService) {
+    function TaskController($cookies, $http, $rootScope, popupService, tasksActions) {
         var tc = this;
 
         listAll();
@@ -36,16 +36,9 @@
 
 
         function setDone($event, id) {
-            var attrVal = $($event.target).attr('data-done'),
-                newVal;
+            window.console.log($event);
 
-            if ( attrVal == 0)
-                newVal = 1;
-            else
-                newVal = 0;
-
-            $($event.target).attr('data-done', newVal);
-            $($event.target).closest('.tasks__item').find('h1').toggleClass('completed');
+            var newVal = tasksActions.toggleCompleted($event);
 
             var data = $.param({
                 mode: 'updateDone',
@@ -54,13 +47,7 @@
                 done: newVal
             });
 
-            $http({
-                url: '../public/classes/Tasks.php',
-                method: 'POST',
-                data: data,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            tasksActions.modify(data).then(function(response) {
                 listAll();
             });
         }
@@ -83,13 +70,7 @@
                 userid: $cookies.get('userID')
             });
 
-            $http({
-                url: '../public/classes/Tasks.php',
-                method: 'POST',
-                data: data,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            tasksActions.modify(data).then(function(response) {
                 listAll();
                 popupService.close();
             });
@@ -107,45 +88,44 @@
                 date: tc.date,
             });
 
-            $http({
-                url: '../public/classes/Tasks.php',
-                method: 'POST',
-                data: data,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            tasksActions.modify(data).then(function(response) {
                 listAll();
                 popupService.close();
             });
         }
 
         function remove(id, categoryid, name, description, date, done) {
-            $http({
-                url: '../public/classes/Tasks.php?mode=delete&taskid='+id,
-                method: 'DELETE'
-            })
-            .then(function(response) {
+            var data = $.param({
+                mode: 'delete',
+                taskid: id
+            });
+
+            tasksActions.removeTasks(data).then(function(response) {
                 setUndo(categoryid, name, description, date, done);
                 listAll();
             });
         }
 
         function removeCompleted() {
-            $http({
-                url: '../public/classes/Tasks.php?mode=deleteCompleted&userid='+$cookies.get('userID'),
-                method: 'DELETE'
-            })
-            .then(function(response) {
+            var data = $.param({
+                mode: 'deleteCompleted',
+                userid: $cookies.get('userID')
+            });
+
+            tasksActions.removeTasks(data).then(function(response) {
                 listAll();
             });
         }
 
         function removeFromCategory(categoryid) {
-            $http({
-                url: '../public/classes/Tasks.php?mode=deleteAll&userid='+$cookies.get('userID')+'&categoryid='+categoryid,
-                method: 'DELETE'
-            })
-            .then(function(response) {
+
+            var data = $.param({
+                mode: 'deleteAll',
+                userid: $cookies.get('userID'),
+                categoryid: categoryid
+            });
+
+            tasksActions.removeTasks(data).then(function(response) {
                 listAll();
             });
         }
@@ -162,11 +142,8 @@
                 userid: $cookies.get('userID')
             });
 
-            $http({
-                url: '../public/classes/Tasks.php',
-                method: 'POST',
-                data: data,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            tasksActions.undo(data).then(function() {
+                tc.showUndo = true;
             });
         }
 
@@ -177,15 +154,10 @@
                 userid: $cookies.get('userID')
             });
 
-            $http({
-                url: '../public/classes/Tasks.php',
-                method: 'POST',
-                data: data,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            tasksActions.undo(data).then(function(response) {
                 countUncompleted();
                 listAll();
+                tc.showUndo = false;
             });
         }
 
@@ -204,34 +176,34 @@
         }
 
         function countUncompleted() {
-            $http({
-                url: '../public/classes/Tasks.php?mode=uncompleted&userid='+$cookies.get('userID'),
-                method: 'GET',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            var data = $.param({
+                mode: 'uncompleted',
+                userid: $cookies.get('userID')
+            });
+
+            tasksActions.countTasks(data).then(function(response) {
                 tc.uncompleted = response.data;
             })
         }
 
         function countCompleted() {
-            $http({
-                url: '../public/classes/Tasks.php?mode=completed&userid='+$cookies.get('userID'),
-                method: 'GET',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            var data = $.param({
+                mode: 'completed',
+                userid: $cookies.get('userID')
+            });
+
+            tasksActions.countTasks(data).then(function(response) {
                 tc.completed = response.data;
             })
         }
 
         function listAll() {
-            $http({
-                url: '../public/classes/Tasks.php?mode=list&userid='+$cookies.get('userID'),
-                method: 'GET',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            var data = $.param({
+                mode: 'list',
+                userid: $cookies.get('userID')
+            });
+
+            tasksActions.list(data).then(function(response) {
                 if (!response.data[0])
                     tc.noTasks = true;
 
@@ -242,12 +214,13 @@
         }
 
         function listByCategory(categoryID) {
-            $http({
-                url: '../public/classes/Tasks.php?mode=listBy&categoryid='+categoryID+'&userid='+$cookies.get('userID'),
-                method: 'GET',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            var data = $.param({
+                mode: 'listBy',
+                categoryid: categoryID,
+                userid: $cookies.get('userID')
+            });
+
+            tasksActions.list(data).then(function(response) {
                 tc.tasks = response.data;
                 countUncompleted();
             });

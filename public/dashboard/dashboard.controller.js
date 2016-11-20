@@ -5,9 +5,9 @@
 
     app.controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$location', '$cookies', '$http', 'userData', 'popupService'];
+    DashboardController.$inject = ['$location', '$cookies', '$http', 'userData', 'popupService', 'animations', 'userAuthenticate'];
 
-    function DashboardController($location, $cookies, $http, userData, popupService) {
+    function DashboardController($location, $cookies, $http, userData, popupService, animations, userAuthenticate) {
         var dc = this;
 
         dc.logout   = logout;
@@ -17,7 +17,7 @@
         if ( ! $cookies.get('userID'))
             $location.path('/login');
 
-        $('.wrapper').addClass('lowAnimations wrapper--noFlex');
+        animations.decrease();
 
         //check if userData is available or make request to DB
         if ( typeof userData.getFirstName() === 'undefined' || userData.getFirstName() === '')
@@ -40,13 +40,7 @@
                 password: dc.password
             });
 
-            $http({
-                url: '../public/classes/Authenticate.php',
-                method: 'POST',
-                data: data,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            userAuthenticate.auth(data).then(function(response) {
                 popupService.close();
             });
         }

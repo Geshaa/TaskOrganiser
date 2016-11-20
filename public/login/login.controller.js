@@ -5,14 +5,14 @@
 
     app.controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', '$http', '$cookies', 'userData'];
+    LoginController.$inject = ['$location', '$http', '$cookies', 'userData', 'animations', 'userAuthenticate'];
 
-    function LoginController($location, $http, $cookies, userData) {
+    function LoginController($location, $http, $cookies, userData, animations, userAuthenticate) {
         var lc = this;
 
         lc.login = login;
 
-        $('.wrapper').removeClass('lowAnimations wrapper--noFlex');
+        animations.increase();
 
         function login() {
             lc.dataLoading = true;
@@ -23,13 +23,7 @@
                 password: lc.password,
             });
 
-            $http({
-                url: '../public/classes/Authenticate.php',
-                method: 'POST',
-                data: data,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            userAuthenticate.auth(data).then(function(response) {
 
                 if ( response.data[0] === 1) {
                     userData.setFirstName('');
@@ -42,7 +36,8 @@
 
                 lc.dataLoading = false;
                 $cookies.put('userID', response.data[1]);
-            })
+
+            });
         }
     }
 })();

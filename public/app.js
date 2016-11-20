@@ -31,7 +31,6 @@
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
     function run($rootScope, $location, $cookies, $http) {
-        // keep user logged in after page refresh
 
     }
 
@@ -93,6 +92,124 @@
             $('[data-popup]').find('input, textarea').val('');
         }
     });
+
+    app.service('animations', function() {
+
+        this.decrease = function() {
+            $('.wrapper').addClass('lowAnimations wrapper--noFlex');
+        }
+
+        this.increase = function() {
+            $('.wrapper').removeClass('lowAnimations wrapper--noFlex');
+        }
+    });
+
+    app.service('userAuthenticate', ['$http', function($http) {
+
+        this.auth = function(data) {
+
+            return $http({
+                url: '../public/classes/Authenticate.php',
+                method: 'POST',
+                data: data,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        }
+    }]);
+
+    app.service('categoriesActions', ['$http', function($http) {
+
+        this.list = function(data) {
+            return $http({
+                url: '../public/classes/Categories.php?'+data,
+                method: 'GET',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        }
+
+        this.remove = function(data) {
+            return $http({
+                url: '../public/classes/Categories.php?'+data,
+                method: 'DELETE'
+            });
+        }
+
+        this.addEdit = function(data) {
+            return $http({
+                url: '../public/classes/Categories.php',
+                method: 'POST',
+                data: data,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        }
+    }]);
+
+    app.service('tasksActions', ['$http', function($http) {
+
+        this.list = function(data) {
+
+            return $http({
+                url: '../public/classes/Tasks.php?'+data,
+                method: 'GET',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        }
+
+        this.countTasks = function(data) {
+
+            return $http({
+                url: '../public/classes/Tasks.php?'+data,
+                method: 'GET',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        }
+
+        this.removeTasks = function(data) {
+
+            return $http({
+                url: '../public/classes/Tasks.php?'+data,
+                method: 'DELETE',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        }
+
+        this.undo = function(data) {
+
+            return $http({
+                url: '../public/classes/Tasks.php',
+                method: 'POST',
+                data: data,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        }
+
+        this.modify = function(data) {
+
+            return $http({
+                url: '../public/classes/Tasks.php',
+                method: 'POST',
+                data: data,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        }
+
+        this.toggleCompleted = function($event) {
+
+            var attrVal = $($event.target).attr('data-done'),
+                newVal;
+
+            if ( attrVal == 0)
+                newVal = 1;
+            else
+                newVal = 0;
+
+            $($event.target).attr('data-done', newVal);
+            $($event.target).closest('.tasks__item').find('h1').toggleClass('completed');
+
+            return newVal;
+        }
+
+    }]);
 
     app.filter('textlength', function () {
         return function (value, wordwise, max, tail) {

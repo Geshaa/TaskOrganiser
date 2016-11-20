@@ -5,9 +5,9 @@
 
     app.controller('CategoryController', CategoryController);
 
-    CategoryController.$inject = ['$cookies', '$http', '$rootScope', 'popupService'];
+    CategoryController.$inject = ['$cookies', '$http', '$rootScope', 'popupService', 'categoriesActions'];
 
-    function CategoryController($cookies, $http, $rootScope, popupService) {
+    function CategoryController($cookies, $http, $rootScope, popupService, categoriesActions) {
     var cc = this;
 
         list();
@@ -30,24 +30,19 @@
                 userid: $cookies.get('userID')
             });
 
-            $http({
-                url: '../public/classes/Categories.php',
-                method: 'POST',
-                data: data,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            categoriesActions.addEdit(data).then(function(response) {
                 list();
                 popupService.close();
             });
         }
 
         function remove(id) {
-            $http({
-                url: '../public/classes/Categories.php?mode=delete&categoryid='+id,
-                method: 'DELETE'
-            })
-            .then(function(response) {
+            var data = $.param({
+                mode: 'delete',
+                categoryid: id
+            });
+
+            categoriesActions.remove(data).then(function(response) {
                 list();
                 $rootScope.$broadcast('deleteCategory', id);
             });
@@ -62,13 +57,7 @@
                 description: cc.description
             });
 
-            $http({
-                url: '../public/classes/Categories.php',
-                method: 'POST',
-                data: data,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            categoriesActions.addEdit(data).then(function(response) {
                 list();
                 popupService.close();
             });
@@ -86,12 +75,12 @@
         }
 
         function list() {
-            $http({
-                url: '../public/classes/Categories.php?mode=read&userid='+$cookies.get('userID'),
-                method: 'GET',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            var data = $.param({
+                mode: 'read',
+                userid: $cookies.get('userID')
+            });
+
+            categoriesActions.list(data).then(function(response) {
                 if (!response.data[0])
                     cc.noCategories = true;
                 cc.categories = response.data;

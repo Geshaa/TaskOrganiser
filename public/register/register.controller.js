@@ -4,9 +4,9 @@
     var app = angular.module('app');
     app.controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$location', '$http', '$cookies', 'userData'];
+    RegisterController.$inject = ['$location', '$http', '$cookies', 'userData', 'userAuthenticate'];
 
-    function RegisterController($location, $http, $cookies, userData) {
+    function RegisterController($location, $http, $cookies, userData, userAuthenticate) {
         var rc = this;
 
         rc.register = register;
@@ -23,13 +23,8 @@
                 email: rc.email
             });
 
-            $http({
-                url: '../public/classes/Authenticate.php',
-                method: 'POST',
-                data: data,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+            userAuthenticate.auth(data).then(function(response) {
+
                 if ( response.data[0] === -1) {
                     rc.taken = true;
                 }
@@ -42,7 +37,7 @@
 
                 rc.dataLoading = false;
                 $cookies.put('userID', response.data[1]);
-            })
+            });
         }
     }
 })();
