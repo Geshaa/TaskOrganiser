@@ -43,7 +43,7 @@
 
         data.init = function() {
             return $http({
-                url: '../public/classes/Authenticate.php?mode=getUser&userID='+$cookies.get('userID'),
+                url: './classes/Authenticate.php?mode=getUser&userID='+$cookies.get('userID'),
                 method: 'GET',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             })
@@ -109,7 +109,7 @@
         this.auth = function(data) {
 
             return $http({
-                url: '../public/classes/Authenticate.php',
+                url: './classes/Authenticate.php',
                 method: 'POST',
                 data: data,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -121,7 +121,7 @@
 
         this.list = function(data) {
             return $http({
-                url: '../public/classes/Categories.php?'+data,
+                url: './classes/Categories.php?'+data,
                 method: 'GET',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
@@ -129,14 +129,14 @@
 
         this.remove = function(data) {
             return $http({
-                url: '../public/classes/Categories.php?'+data,
+                url: './classes/Categories.php?'+data,
                 method: 'DELETE'
             });
         }
 
         this.addEdit = function(data) {
             return $http({
-                url: '../public/classes/Categories.php',
+                url: './classes/Categories.php',
                 method: 'POST',
                 data: data,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -149,7 +149,7 @@
         this.list = function(data) {
 
             return $http({
-                url: '../public/classes/Tasks.php?'+data,
+                url: './classes/Tasks.php?'+data,
                 method: 'GET',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
@@ -158,7 +158,7 @@
         this.countTasks = function(data) {
 
             return $http({
-                url: '../public/classes/Tasks.php?'+data,
+                url: './classes/Tasks.php?'+data,
                 method: 'GET',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
@@ -167,7 +167,7 @@
         this.removeTasks = function(data) {
 
             return $http({
-                url: '../public/classes/Tasks.php?'+data,
+                url: './classes/Tasks.php?'+data,
                 method: 'DELETE',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
@@ -176,7 +176,7 @@
         this.undo = function(data) {
 
             return $http({
-                url: '../public/classes/Tasks.php',
+                url: './classes/Tasks.php',
                 method: 'POST',
                 data: data,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -186,7 +186,7 @@
         this.modify = function(data) {
 
             return $http({
-                url: '../public/classes/Tasks.php',
+                url: './classes/Tasks.php',
                 method: 'POST',
                 data: data,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
