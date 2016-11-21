@@ -204,8 +204,12 @@
             });
 
             tasksActions.list(data).then(function(response) {
+                window.console.log(response.data[0]);
+
                 if (!response.data[0])
                     tc.noTasks = true;
+                else
+                    tc.noTasks = false;
 
                 tc.tasks = response.data;
                 countUncompleted();
