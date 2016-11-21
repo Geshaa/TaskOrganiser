@@ -2,7 +2,7 @@
 Single Page Application that lets you create,edit and delete tasks. Each task can be organised
 into different categories and assign date to complete.
 
-## Registered users has the ability to
+## Users has the ability to:
   - Create categories
   - Edit Categories
   - Delete categories and all tasks inside them
@@ -13,4 +13,5 @@ into different categories and assign date to complete.
   - Set task as completed, but not deleted
   - Delete all of completed tasks
   - Undo last deleted task
+  - Update profile info
 
