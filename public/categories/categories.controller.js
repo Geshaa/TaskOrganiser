@@ -87,6 +87,9 @@
                     cc.noCategories = false;
 
                 cc.categories = response.data;
+
+                $rootScope.allCategories = response.data;
+                $rootScope.$broadcast('updateAllCategories');
             })
         }
 
