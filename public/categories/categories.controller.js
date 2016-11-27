@@ -83,7 +83,13 @@
             categoriesActions.list(data).then(function(response) {
                 if (!response.data[0])
                     cc.noCategories = true;
+                else
+                    cc.noCategories = false;
+
                 cc.categories = response.data;
+
+                $rootScope.allCategories = response.data;
+                $rootScope.$broadcast('updateAllCategories');
             })
         }
 

@@ -22,6 +22,10 @@
         tc.setEmpty         = setEmpty;
 
 
+        $rootScope.$on('updateAllCategories', function(e, data) {
+            tc.allCategories = $rootScope.allCategories;
+        });
+
         $rootScope.$on('listByCategory', function(e, data) {
             listByCategory(data);
         });
@@ -204,8 +208,11 @@
             });
 
             tasksActions.list(data).then(function(response) {
+
                 if (!response.data[0])
                     tc.noTasks = true;
+                else
+                    tc.noTasks = false;
 
                 tc.tasks = response.data;
                 countUncompleted();

@@ -15,7 +15,7 @@
         </aside>
     </article>
 
-    <p class="tasks__error" ng-show="tc.noTasks">There are not tasks added yet.</p>
+    <p class="tasks__error" ng-show="tc.noTasks">There are no tasks added yet.</p>
 
     <span class="tasks__removeCompleted btn" ng-hide="tc.completed == 0" ng-click="tc.removeCompleted()">Remove Completed</span>
 
@@ -30,8 +30,8 @@
     <span data-popup-close="addTask" data-position="right">X</span>
 
     <form name="addTaskForm" ng-submit="tc.add()" class="form form--addTask">
-        <div class="form__row" ng-controller="CategoryController as cc">
-            <select class="selectBoxes" ng-model="tc.category" name="categoryID" ng-options="category.id as category.name for category in cc.categories track by category.id">
+        <div class="form__row">
+            <select class="selectBoxes" ng-model="tc.category" name="categoryID" ng-options="category.id as category.name for category in tc.allCategories track by category.id">
                 <option value="">Choose category</option>
             </select>
         </div>
@@ -56,9 +56,9 @@
     <span data-popup-close="updateTask" data-position="right">X</span>
 
     <form name="updateTaskForm" ng-submit="tc.update()" class="form form--updateTask">
-        <div class="form__row" ng-controller="CategoryController as cc">
+        <div class="form__row">
             <!-- track by category.id -->
-            <select class="selectBoxes" ng-model="tc.category" name="categoryID" ng-options="category.id as category.name for category in cc.categories ">
+            <select class="selectBoxes" ng-model="tc.category" name="categoryID" ng-options="category.id as category.name for category in tc.allCategories">
                 <option value="">Choose category</option>
             </select>
         </div>
